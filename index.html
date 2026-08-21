@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alejandro Dev | Pixel Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/press-start-2p@latest/latin-400-normal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vt323@latest/latin-400-normal.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'rpg-bg': '#1a1a2e',
+            'rpg-panel': '#2d2d44',
+            'rpg-dark': '#16162a',
+            'rpg-border': '#4a4a6a',
+            'rpg-green': '#00e676',
+            'rpg-blue': '#448aff',
+            'rpg-yellow': '#ffd740',
+            'rpg-red': '#ff5252',
+            'rpg-purple': '#7c4dff',
+            'rpg-cyan': '#18ffff',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { image-rendering: pixelated; }
+    body {
+      font-family: 'VT323', monospace;
+      background-color: #1a1a2e;
+      overflow-x: hidden;
+    }
+    .font-pixel { font-family: 'Press Start 2P', cursive; }
+    .font-vt { font-family: 'VT323', monospace; }
+
+    /* CRT Scanline Effect */
+    .scanlines::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.15) 0px,
+        rgba(0,0,0,0.15) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .scanlines::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%);
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* Pixel Box */
+    .pixel-box {
+      border: 4px solid #000;
+      box-shadow: 
+        inset -4px -4px 0 rgba(0,0,0,0.3),
+        inset 4px 4px 0 rgba(255,255,255,0.1),
+        4px 4px 0 #000;
+      position: relative;
+    }
+    .pixel-box::before {
+      content: '';
+      position: absolute;
+      top: 4px; left: 4px; right: 4px; bottom: 4px;
+      border: 2px solid rgba(255,255,255,0.05);
+      pointer-events: none;
+    }
+
+    /* Pixel Button */
+    .pixel-btn {
+      border: 3px solid #000;
+      box-shadow: 
+        inset -2px -2px 0 rgba(0,0,0,0.3),
+        inset 2px 2px 0 rgba(255,255,255,0.2),
+        3px 3px 0 #000;
+      transition: all 0.08s;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    .pixel-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 
+        inset -2px -2px 0 rgba(0,0,0,0.3),
+        inset 2px 2px 0 rgba(255,255,255,0.2),
+        5px 5px 0 #000;
+    }
+    .pixel-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 
+        inset 2px 2px 0 rgba(0,0,0,0.3),
+        1px 1px 0 #000;
+    }
+
+    /* Blinking Cursor */
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .blink { animation: blink 1s infinite; }
+
+    /* Float Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .float-anim { animation: float 3s ease-in-out infinite; }
+
+    /* Glow Animation */
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
+      50% { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor; }
+    }
+    .glow-anim { animation: glow 2s ease-in-out infinite; }
+
+    /* Press Start Pulse */
+    @keyframes pressStart {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+    .press-start { animation: pressStart 1.5s ease-in-out infinite; }
+
+    /* Starfield Background */
+    .starfield {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      background: 
+        radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 160px 120px, #fff, transparent),
+        radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 250px 90px, #fff, transparent),
+        radial-gradient(1px 1px at 300px 30px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 350px 110px, #fff, transparent),
+        radial-gradient(1px 1px at 400px 60px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 450px 100px, #fff, transparent),
+        radial-gradient(1px 1px at 500px 40px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 550px 80px, #fff, transparent),
+        radial-gradient(1px 1px at 600px 20px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 650px 130px, #fff, transparent),
+        radial-gradient(1px 1px at 700px 50px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 750px 90px, #fff, transparent),
+        radial-gradient(1px 1px at 800px 70px, rgba(255,255,255,0.8), transparent);
+      background-size: 800px 200px;
+      animation: starMove 60s linear infinite;
+    }
+    @keyframes starMove {
+      from { background-position: 0 0; }
+      to { background-position: -800px 0; }
+    }
+
+    /* RPG Menu Item */
+    .rpg-menu-item {
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all 0.1s;
+      border: 2px solid transparent;
+    }
+    .rpg-menu-item:hover, .rpg-menu-item.active {
+      background: rgba(0, 230, 118, 0.15);
+      border-color: #00e676;
+      color: #00e676;
+    }
+    .rpg-menu-item::before {
+      content: '▶';
+      margin-right: 8px;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+    .rpg-menu-item:hover::before, .rpg-menu-item.active::before {
+      opacity: 1;
+    }
+
+    /* HP/MP Bar */
+    .stat-bar {
+      height: 16px;
+      border: 2px solid #000;
+      background: #1a1a2e;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-bar-fill {
+      height: 100%;
+      transition: width 1s ease-out;
+      position: relative;
+    }
+    .stat-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Dialog Box */
+    .dialog-box {
+      background: #2d2d44;
+      border: 4px solid #000;
+      box-shadow: 
+        inset -4px -4px 0 rgba(0,0,0,0.3),
+        inset 4px 4px 0 rgba(255,255,255,0.05),
+        4px 4px 0 #000;
+      padding: 20px;
+      position: relative;
+    }
+    .dialog-box::after {
+      content: '▼';
+      position: absolute;
+      bottom: 8px;
+      right: 16px;
+      animation: blink 1s infinite;
+      color: #00e676;
+    }
+
+    /* Section Transitions */
+    .section-content {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+    .section-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Pixel Grid Pattern */
+    .pixel-grid {
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 12px; }
+    ::-webkit-scrollbar-track { background: #1a1a2e; }
+    ::-webkit-scrollbar-thumb { 
+      background: #4a4a6a; 
+      border: 2px solid #1a1a2e;
+    }
+    ::-webkit-scrollbar-thumb:hover { background: #00e676; }
+
+    /* Navigation */
+    .nav-link {
+      position: relative;
+      padding: 4px 0;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #00e676;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* Project Card Hover */
+    .project-card {
+      transition: all 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        inset -4px -4px 0 rgba(0,0,0,0.3),
+        inset 4px 4px 0 rgba(255,255,255,0.1),
+        8px 8px 0 #000;
+    }
+
+    /* Input RPG Style */
+    .rpg-input {
+      background: #1a1a2e;
+      border: 3px solid #4a4a6a;
+      color: #00e676;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .rpg-input:focus {
+      border-color: #00e676;
+      box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+    }
+    .rpg-input::placeholder { color: #4a4a6a; }
+
+    /* Sound Toggle */
+    .sound-btn {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 10000;
+      background: #2d2d44;
+      border: 3px solid #000;
+      box-shadow: 3px 3px 0 #000;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.1s;
+    }
+    .sound-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+
+    /* Level Badge */
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, #ffd740, #ff9100);
+      color: #000;
+      padding: 2px 8px;
+      border: 2px solid #000;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.5rem;
+    }
+
+    /* Experience Bar */
+    .xp-bar-container {
+      background: #1a1a2e;
+      border: 2px solid #000;
+      height: 12px;
+      position: relative;
+    }
+    .xp-bar-fill {
+      background: linear-gradient(90deg, #ffd740, #ff9100);
+      height: 100%;
+      transition: width 1.5s ease-out;
+    }
+    .xp-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Achievement Badge */
+    .achievement {
+      border: 2px solid #ffd740;
+      background: rgba(255, 215, 64, 0.1);
+      padding: 4px 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Particle container */
+    .particles {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .desktop-nav { display: none !important; }
+      .mobile-menu { display: block; }
+    }
+
+    /* Hamburger animation */
+    .hamburger-line {
+      display: block;
+      width: 24px;
+      height: 3px;
+      background: #00e676;
+      margin: 4px 0;
+      transition: all 0.3s;
+    }
+    .hamburger-btn.open .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    .hamburger-btn.open .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger-btn.open .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+  </style>
+</head>
+<body class="text-gray-100 min-h-screen pixel-grid scanlines">
+  <!-- Starfield Background -->
+  <div class="starfield"></div>
+  
+  <!-- Particles -->
+  <canvas id="particles" class="particles"></canvas>
+
+  <!-- Sound Toggle -->
+  <button class="sound-btn" id="soundToggle" onclick="toggleSound()">
+    🔊
+  </button>
+
+  <!-- Start Screen Overlay -->
+  <div id="startScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-rpg-bg">
+    <div class="text-center">
+      <div class="mb-8">
+        <div class="font-pixel text-rpg-green text-2xl sm:text-4xl mb-4 glow-anim">ALEJANDRO.DEV</div>
+        <div class="font-vt text-2xl text-gray-400">Full Stack Web Developer</div>
+      </div>
+      <div class="mb-12">
+        <div class="w-32 h-32 sm:w-48 sm:h-48 mx-auto float-anim pixel-box overflow-hidden bg-rpg-dark">
+          <img src="https://image.qwenlm.ai/public_source/a831ae1d-7ad3-45e5-8673-fb64e8a3baba/18c248234-8ff9-4859-8e65-3bc746c153f9.png" 
+               alt="Avatar" class="w-full h-full object-cover" style="image-rendering: auto;">
+        </div>
+      </div>
+      <button onclick="startGame()" class="press-start font-pixel text-rpg-yellow text-sm sm:text-lg bg-transparent border-0 cursor-pointer">
+        ▶ PRESS START 
+      </button>
+      <div class="mt-8 font-vt text-gray-500 text-lg">© 2026 alejandrodev.cl</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="mainContent" class="hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-rpg-bg/90 backdrop-blur-sm border-b-4 border-black">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="font-pixel text-rpg-green text-xs sm:text-sm">⚔ ALEJANDRO.DEV</div>
+        <div class="desktop-nav flex gap-6 font-vt text-lg">
+          <a href="#hero" class="nav-link text-gray-300 hover:text-rpg-green">Inicio</a>
+          <a href="#stats" class="nav-link text-gray-300 hover:text-rpg-green">Stats</a>
+          <a href="#quests" class="nav-link text-gray-300 hover:text-rpg-green">Quests</a>
+          <a href="#inventory" class="nav-link text-gray-300 hover:text-rpg-green">Inventario</a>
+          <a href="#contact" class="nav-link text-gray-300 hover:text-rpg-green">Contacto</a>
+        </div>
+        <button class="mobile-menu hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="hidden mobile-menu bg-rpg-dark border-t-2 border-rpg-border px-4 py-4">
+        <div class="flex flex-col gap-3 font-vt text-xl">
+          <a href="#hero" class="rpg-menu-item" onclick="toggleMobileMenu()">🏠 Inicio</a>
+          <a href="#stats" class="rpg-menu-item" onclick="toggleMobileMenu()">📊 Stats</a>
+          <a href="#quests" class="rpg-menu-item" onclick="toggleMobileMenu()"> Quests</a>
+          <a href="#inventory" class="rpg-menu-item" onclick="toggleMobileMenu()">🎒 Inventario</a>
+          <a href="#contact" class="rpg-menu-item" onclick="toggleMobileMenu()">💬 Contacto</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center pt-20 px-4">
+      <div class="max-w-4xl w-full">
+        <div class="pixel-box bg-rpg-panel p-6 sm:p-8">
+          <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+            <!-- Avatar -->
+            <div class="relative">
+              <div class="w-32 h-32 sm:w-40 sm:h-40 bg-rpg-dark pixel-box flex items-center justify-center overflow-hidden float-anim">
+                <img src="https://image.qwenlm.ai/public_source/a831ae1d-7ad3-45e5-8673-fb64e8a3baba/18c248234-8ff9-4859-8e65-3bc746c153f9.png" 
+                     alt="Alejandro Dev Avatar" class="w-full h-full object-cover" style="image-rendering: auto;">
+              </div>
+              <div class="absolute -bottom-2 -right-2 level-badge">LV.24</div>
+            </div>
+            
+            <!-- Info -->
+            <div class="flex-1 text-center sm:text-left">
+              <h1 class="font-pixel text-lg sm:text-2xl text-rpg-green mb-2">ALEJANDRO.DEV</h1>
+              <p class="font-vt text-xl sm:text-2xl text-gray-300 mb-1">Full Stack Web Developer</p>
+              <p class="font-vt text-lg text-gray-400 mb-4">Clase: <span class="text-rpg-cyan">Arquitecto Digital</span> | Región: <span class="text-rpg-yellow">Chile</span></p>
+              
+              <!-- HP/MP Bars -->
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="font-pixel text-[0.5rem] text-rpg-red w-8">HP</span>
+                  <div class="flex-1 stat-bar">
+                    <div class="stat-bar-fill bg-gradient-to-r from-rpg-red to-red-400" style="width: 100%"></div>
+                  </div>
+                  <span class="font-vt text-rpg-red text-lg w-20 text-right">100/100</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="font-pixel text-[0.5rem] text-rpg-blue w-8">MP</span>
+                  <div class="flex-1 stat-bar">
+                    <div class="stat-bar-fill bg-gradient-to-r from-rpg-blue to-blue-400" style="width: 95%"></div>
+                  </div>
+                  <span class="font-vt text-rpg-blue text-lg w-20 text-right">95/100</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="font-pixel text-[0.5rem] text-rpg-yellow w-8">XP</span>
+                  <div class="flex-1 xp-bar-container">
+                    <div class="xp-bar-fill" style="width: 78%"></div>
+                  </div>
+                  <span class="font-vt text-rpg-yellow text-lg w-20 text-right">7800/10000</span>
+                </div>
+              </div>
+
+              <!-- RPG Menu -->
+              <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
+                <a href="#quests" class="pixel-btn bg-rpg-green text-black px-4 py-2 font-pixel text-[0.5rem] sm:text-xs">📜 QUESTS</a>
+                <a href="#stats" class="pixel-btn bg-rpg-blue text-white px-4 py-2 font-pixel text-[0.5rem] sm:text-xs">📊 STATS</a>
+                <a href="#inventory" class="pixel-btn bg-rpg-purple text-white px-4 py-2 font-pixel text-[0.5rem] sm:text-xs">🎒 INVENTARIO</a>
+                <a href="#contact" class="pixel-btn bg-rpg-yellow text-black px-4 py-2 font-pixel text-[0.5rem] sm:text-xs">💬 CONTACTO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dialog Box -->
+        <div class="dialog-box mt-6 font-vt text-xl text-gray-300">
+          <p>¡Bienvenido, viajero! Soy <span class="text-rpg-green">Alejandro</span>, un desarrollador web apasionado por crear aplicaciones modernas y escalables. Explora mi mundo y descubre mis proyectos. <span class="blink">_</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="py-20 px-4">
+      <div class="max-w-4xl mx-auto section-content">
+        <h2 class="font-pixel text-lg sm:text-xl text-rpg-yellow mb-8 text-center">📊 CHARACTER STATS</h2>
+        
+        <div class="pixel-box bg-rpg-panel p-6 sm:p-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Skill: JavaScript -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-pixel text-[0.5rem] text-rpg-cyan">JavaScript / ES6+</span>
+                <span class="font-vt text-rpg-cyan text-lg">Lv. 90</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 90%"></div>
+              </div>
+            </div>
+            
+            <!-- Skill: React -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-pixel text-[0.5rem] text-rpg-cyan">React / Next.js</span>
+                <span class="font-vt text-rpg-cyan text-lg">Lv. 88</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 88%"></div>
+              </div>
+            </div>
+
+            <!-- Skill: TypeScript -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-pixel text-[0.5rem] text-rpg-cyan">TypeScript</span>
+                <span class="font-vt text-rpg-cyan text-lg">Lv. 83</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 83%"></div>
+              </div>
+            </div>
+
+            <!-- Skill: Node.js -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-pixel text-[0.5rem] text-rpg-cyan">Node.js / Express</span>
+                <span class="font-vt text-rpg-cyan text-lg">Lv. 87</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 87%"></div>
+              </div>
+            </div>
+
+            <!-- Skill: SQL -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-pixel text-[0.5rem] text-rpg-cyan">SQL / PostgreSQL</span>
+                <span class="font-vt text-rpg-cyan text-lg">Lv. 85</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 85%"></div>
+              </div>
+            </div>
+
+            <!-- Skill: HTML/CSS -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-pixel text-[0.5rem] text-rpg-cyan">HTML5 / CSS3 / Tailwind</span>
+                <span class="font-vt text-rpg-cyan text-lg">Lv. 92</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 92%"></div>
+              </div>
+            </div>
+
+            <!-- Skill: Git -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-pixel text-[0.5rem] text-rpg-cyan">Git / GitHub</span>
+                <span class="font-vt text-rpg-cyan text-lg">Lv. 88</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 88%"></div>
+              </div>
+            </div>
+
+            <!-- Skill: DevOps -->
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="font-pixel text-[0.5rem] text-rpg-cyan">DevOps / Cloud</span>
+                <span class="font-vt text-rpg-cyan text-lg">Lv. 70</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 70%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attributes -->
+          <div class="mt-8 pt-6 border-t-2 border-rpg-border">
+            <h3 class="font-pixel text-[0.6rem] text-rpg-yellow mb-4">⚔ ATRIBUTOS</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div class="text-center">
+                <div class="font-pixel text-[0.5rem] text-gray-400 mb-1">INT</div>
+                <div class="font-vt text-3xl text-rpg-yellow">95</div>
+              </div>
+              <div class="text-center">
+                <div class="font-pixel text-[0.5rem] text-gray-400 mb-1">CRE</div>
+                <div class="font-vt text-3xl text-rpg-yellow">88</div>
+              </div>
+              <div class="text-center">
+                <div class="font-pixel text-[0.5rem] text-gray-400 mb-1">DEX</div>
+                <div class="font-vt text-3xl text-rpg-yellow">82</div>
+              </div>
+              <div class="text-center">
+                <div class="font-pixel text-[0.5rem] text-gray-400 mb-1">CHA</div>
+                <div class="font-vt text-3xl text-rpg-yellow">76</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quests Section -->
+    <section id="quests" class="py-20 px-4">
+      <div class="max-w-4xl mx-auto section-content">
+        <h2 class="font-pixel text-lg sm:text-xl text-rpg-yellow mb-8 text-center">📜 QUEST LOG</h2>
+        
+        <div class="grid gap-6">
+          <!-- Quest: App Iglesia -->
+          <div class="pixel-box bg-rpg-panel p-6 project-card border-rpg-yellow">
+            <div class="flex flex-col sm:flex-row gap-4">
+              <div class="w-full sm:w-64 h-40 bg-rpg-dark pixel-box flex items-center justify-center overflow-hidden flex-shrink-0">
+                <img src="https://image.qwenlm.ai/public_source/a831ae1d-7ad3-45e5-8673-fb64e8a3baba/198f64f45-2a45-4a25-9d9b-6739e3b0b083.png" 
+                     alt="App Iglesia Preview" class="w-full h-full object-cover" style="image-rendering: auto;">
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-2 flex-wrap">
+                  <span class="font-vt text-lg text-rpg-yellow bg-rpg-yellow/20 px-2 py-1 border border-rpg-yellow"> EN PROGRESO</span>
+                  <span class="level-badge">DIF: ★★★★</span>
+                </div>
+                <h3 class="font-pixel text-[0.6rem] sm:text-xs text-rpg-green mb-2">⛪ App Iglesia - Sistema de Gestión</h3>
+                <p class="font-vt text-lg text-gray-300 mb-3">Aplicación web para la gestión integral de una iglesia. Incluye módulos de membresía, eventos, contribuciones y reportes. Desarrollada con tecnologías modernas del stack web.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="font-vt text-sm bg-rpg-cyan/30 text-rpg-cyan px-2 py-1 border border-rpg-cyan">React</span>
+                  <span class="font-vt text-sm bg-rpg-green/30 text-rpg-green px-2 py-1 border border-rpg-green">Node.js</span>
+                  <span class="font-vt text-sm bg-rpg-blue/30 text-rpg-blue px-2 py-1 border border-rpg-blue">PostgreSQL</span>
+                  <span class="font-vt text-sm bg-rpg-yellow/30 text-rpg-yellow px-2 py-1 border border-rpg-yellow">Tailwind CSS</span>
+                </div>
+                <div class="stat-bar mb-3">
+                  <div class="stat-bar-fill bg-gradient-to-r from-rpg-yellow to-yellow-300" style="width: 60%"></div>
+                </div>
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                  <span class="font-vt text-rpg-yellow text-lg">Progreso: 60%</span>
+                  <a href="https://github.com/Alejvndro01/app-iglesia" target="_blank" class="pixel-btn bg-rpg-dark text-white px-4 py-2 font-pixel text-[0.5rem]">📂 VER CÓDIGO</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coming Soon Card -->
+          <div class="pixel-box bg-rpg-panel p-6 project-card opacity-70">
+            <div class="flex flex-col items-center text-center py-8">
+              <div class="text-4xl mb-4">🔮</div>
+              <h3 class="font-pixel text-[0.6rem] sm:text-xs text-rpg-purple mb-2">PRÓXIMAS QUESTS</h3>
+              <p class="font-vt text-lg text-gray-400 mb-4">Más proyectos en desarrollo...</p>
+              <div class="flex gap-2">
+                <span class="font-vt text-sm bg-rpg-purple/30 text-rpg-purple px-2 py-1 border border-rpg-purple blink">Coming Soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inventory Section -->
+    <section id="inventory" class="py-20 px-4">
+      <div class="max-w-4xl mx-auto section-content">
+        <h2 class="font-pixel text-lg sm:text-xl text-rpg-yellow mb-8 text-center">🎒 INVENTARIO (STACK)</h2>
+        
+        <div class="pixel-box bg-rpg-panel p-6 sm:p-8">
+          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+            <!-- Tech Items -->
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-yellow/20 transition-colors cursor-pointer group" title="JavaScript">
+              <span class="text-2xl group-hover:scale-110 transition-transform">⚡</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">JS</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-blue/20 transition-colors cursor-pointer group" title="TypeScript">
+              <span class="text-2xl group-hover:scale-110 transition-transform"></span>
+              <span class="font-vt text-xs text-gray-400 mt-1">TS</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-cyan/20 transition-colors cursor-pointer group" title="React">
+              <span class="text-2xl group-hover:scale-110 transition-transform">⚛️</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">React</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-green/20 transition-colors cursor-pointer group" title="Node.js">
+              <span class="text-2xl group-hover:scale-110 transition-transform">🟢</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">Node</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-purple/20 transition-colors cursor-pointer group" title="Next.js">
+              <span class="text-2xl group-hover:scale-110 transition-transform">▲</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">Next</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-blue/20 transition-colors cursor-pointer group" title="SQL">
+              <span class="text-2xl group-hover:scale-110 transition-transform">🗄️</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">SQL</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-cyan/20 transition-colors cursor-pointer group" title="HTML5">
+              <span class="text-2xl group-hover:scale-110 transition-transform">🌐</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">HTML</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-green/20 transition-colors cursor-pointer group" title="CSS3">
+              <span class="text-2xl group-hover:scale-110 transition-transform">🎨</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">CSS</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-yellow/20 transition-colors cursor-pointer group" title="Tailwind">
+              <span class="text-2xl group-hover:scale-110 transition-transform"></span>
+              <span class="font-vt text-xs text-gray-400 mt-1">Tailwind</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-green/20 transition-colors cursor-pointer group" title="Git">
+              <span class="text-2xl group-hover:scale-110 transition-transform">📦</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">Git</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-red/20 transition-colors cursor-pointer group" title="Docker">
+              <span class="text-2xl group-hover:scale-110 transition-transform">🐳</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">Docker</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-purple/20 transition-colors cursor-pointer group" title="GraphQL">
+              <span class="text-2xl group-hover:scale-110 transition-transform">🔮</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">GraphQL</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-red/20 transition-colors cursor-pointer group" title="REST API">
+              <span class="text-2xl group-hover:scale-110 transition-transform"></span>
+              <span class="font-vt text-xs text-gray-400 mt-1">REST</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-blue/20 transition-colors cursor-pointer group" title="MongoDB">
+              <span class="text-2xl group-hover:scale-110 transition-transform">🍃</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">Mongo</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-cyan/20 transition-colors cursor-pointer group" title="Linux">
+              <span class="text-2xl group-hover:scale-110 transition-transform">🐧</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">Linux</span>
+            </div>
+            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-yellow/20 transition-colors cursor-pointer group" title="Vite">
+              <span class="text-2xl group-hover:scale-110 transition-transform">⚡</span>
+              <span class="font-vt text-xs text-gray-400 mt-1">Vite</span>
+            </div>
+          </div>
+
+          <!-- Equipped Items -->
+          <div class="mt-8 pt-6 border-t-2 border-rpg-border">
+            <h3 class="font-pixel text-[0.6rem] text-rpg-yellow mb-4">⚔ EQUIPADO</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="pixel-box bg-rpg-dark p-4 text-center">
+                <div class="text-3xl mb-2">️</div>
+                <div class="font-pixel text-[0.5rem] text-rpg-green mb-1">ESPADA PRINCIPAL</div>
+                <div class="font-vt text-lg text-gray-300">React + Next.js</div>
+                <div class="font-vt text-rpg-yellow text-sm">ATK +95</div>
+              </div>
+              <div class="pixel-box bg-rpg-dark p-4 text-center">
+                <div class="text-3xl mb-2">🛡️</div>
+                <div class="font-pixel text-[0.5rem] text-rpg-blue mb-1">ESCUDO</div>
+                <div class="font-vt text-lg text-gray-300">TypeScript</div>
+                <div class="font-vt text-rpg-yellow text-sm">DEF +88</div>
+              </div>
+              <div class="pixel-box bg-rpg-dark p-4 text-center">
+                <div class="text-3xl mb-2">🧪</div>
+                <div class="font-pixel text-[0.5rem] text-rpg-purple mb-1">POCIÓN ESPECIAL</div>
+                <div class="font-vt text-lg text-gray-300">Node.js + Express</div>
+                <div class="font-vt text-rpg-yellow text-sm">MAG +87</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4">
+      <div class="max-w-4xl mx-auto section-content">
+        <h2 class="font-pixel text-lg sm:text-xl text-rpg-yellow mb-8 text-center">💬 SAVE POINT (CONTACTO)</h2>
+        
+        <div class="dialog-box">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-2xl">🧙</span>
+            <div>
+              <div class="font-pixel text-[0.6rem] text-rpg-green">NPC: ALEJANDRO</div>
+              <div class="font-vt text-lg text-gray-400">"¿Tienes un proyecto para mí?"</div>
+            </div>
+          </div>
+          
+          <form id="contactForm" class="space-y-4" onsubmit="handleSubmit(event)">
+            <div>
+              <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">TU NOMBRE:</label>
+              <input type="text" class="rpg-input w-full" placeholder="Ingresa tu nombre..." required>
+            </div>
+            <div>
+              <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">TU EMAIL:</label>
+              <input type="email" class="rpg-input w-full" placeholder="tu@email.com" required>
+            </div>
+            <div>
+              <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">MENSAJE:</label>
+              <textarea class="rpg-input w-full h-32 resize-none" placeholder="Describe tu proyecto o idea..." required></textarea>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button type="submit" class="pixel-btn bg-rpg-green text-black px-6 py-3 font-pixel text-[0.5rem] sm:text-xs flex-1">
+                 ENVIAR MENSAJE
+              </button>
+            </div>
+          </form>
+
+          <!-- Social Links -->
+          <div class="mt-6 pt-6 border-t-2 border-rpg-border">
+            <h3 class="font-pixel text-[0.5rem] text-rpg-yellow mb-3">🔗 CONEXIONES</h3>
+            <div class="flex flex-wrap gap-3">
+              <a href="https://github.com/Alejvndro01" target="_blank" class="pixel-btn bg-rpg-dark text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
+                 GitHub
+              </a>
+              <a href="https://discord.com/users/alejvndro_01" target="_blank" class="pixel-btn bg-rpg-purple text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
+                 Discord: alejvndro_01
+              </a>
+              <a href="mailto:alejvndro.arevalo@gmail.com" class="pixel-btn bg-rpg-yellow text-black px-4 py-2 font-vt text-lg flex items-center gap-2">
+                📧 Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 border-t-4 border-black bg-rpg-dark">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="font-pixel text-[0.5rem] text-rpg-green mb-2">© 2026 ALEJANDRO.DEV.CL</div>
+        <div class="font-vt text-lg text-gray-500">Hecho con pixeles, código y mucho ☕</div>
+        <div class="mt-4 flex justify-center gap-4 flex-wrap">
+          <span class="font-vt text-gray-600">💻 Code. Build. Deploy.</span>
+          <span class="font-vt text-gray-600">|</span>
+          <span class="font-vt text-gray-600"> Always Learning.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 hidden">
+    <div class="pixel-box bg-rpg-panel px-6 py-4 font-vt text-lg text-rpg-green">
+      <span id="toastMsg">¡Mensaje enviado!</span>
+    </div>
+  </div>
+
+  <script>
+    // Sound System
+    let soundEnabled = true;
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        switch(type) {
+          case 'click':
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.1);
+            break;
+          case 'hover':
+            oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.05);
+            gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.05);
+            break;
+          case 'start':
+            oscillator.frequency.setValueAtTime(400, audioCtx.currentTime);
+            oscillator.frequency.setValueAtTime(500, audioCtx.currentTime + 0.1);
+            oscillator.frequency.setValueAtTime(600, audioCtx.currentTime + 0.2);
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime + 0.3);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.5);
+            break;
+          case 'success':
+            oscillator.frequency.setValueAtTime(523, audioCtx.currentTime);
+            oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
+            oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.4);
+            break;
+        }
+      } catch(e) {}
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundToggle').textContent = soundEnabled ? '🔊' : '🔇';
+      playSound('click');
+    }
+
+    // Start Game
+    function startGame() {
+      playSound('start');
+      const startScreen = document.getElementById('startScreen');
+      startScreen.style.transition = 'opacity 0.5s, transform 0.5s';
+      startScreen.style.opacity = '0';
+      startScreen.style.transform = 'scale(1.1)';
+      setTimeout(() => {
+        startScreen.style.display = 'none';
+        document.getElementById('mainContent').classList.remove('hidden');
+        initParticles();
+        observeSections();
+      }, 500);
+    }
+
+    // Mobile Menu
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.querySelector('.hamburger-btn');
+      menu.classList.toggle('hidden');
+      btn.classList.toggle('open');
+      playSound('click');
+    }
+
+    // Form Submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      playSound('success');
+      showToast('¡Quest recibida! Te contactaré pronto. 🎮');
+      e.target.reset();
+    }
+
+    // Toast
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    // Intersection Observer for animations
+    function observeSections() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.section-content').forEach(el => observer.observe(el));
+    }
+
+    // Particle System
+    function initParticles() {
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#00e676', '#448aff', '#7c4dff', '#ffd740', '#18ffff'];
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 3 + 1;
+          this.speedX = (Math.random() - 0.5) * 0.5;
+          this.speedY = (Math.random() - 0.5) * 0.5;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.alpha = Math.random() * 0.5 + 0.1;
+          this.life = Math.random() * 200 + 100;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          this.life--;
+          if (this.life <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+            this.reset();
+          }
+        }
+        draw() {
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = this.alpha * (this.life / 200);
+          ctx.fillRect(Math.floor(this.x), Math.floor(this.y), Math.ceil(this.size), Math.ceil(this.size));
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      for (let i = 0; i < 50; i++) {
+        particles.push(new Particle());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+
+    // Add hover sounds to buttons
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.pixel-btn, .rpg-menu-item, .nav-link').forEach(btn => {
+        btn.addEventListener('mouseenter', () => playSound('hover'));
+        btn.addEventListener('click', () => playSound('click'));
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
