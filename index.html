@@ -300,23 +300,26 @@
     }
     .rpg-input::placeholder { color: #4a4a6a; }
 
-    /* Sound Toggle */
+    /* Sound Toggle - BOTTOM RIGHT */
     .sound-btn {
       position: fixed;
-      top: 16px;
-      right: 16px;
-      z-index: 10000;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
       background: #2d2d44;
       border: 3px solid #000;
       box-shadow: 3px 3px 0 #000;
-      padding: 8px 12px;
+      padding: 10px 14px;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       transition: all 0.1s;
     }
     .sound-btn:active {
       transform: translate(2px, 2px);
       box-shadow: 1px 1px 0 #000;
+    }
+    .sound-btn:hover {
+      background: #3e3a59;
     }
 
     /* Level Badge */
@@ -370,32 +373,65 @@
       z-index: 0;
     }
 
-    /* Mobile Menu */
-    .mobile-menu {
+    /* Hamburger Button - always visible on mobile */
+    .hamburger-btn {
       display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      background: #2d2d44;
+      border: 3px solid #000;
+      box-shadow: 3px 3px 0 #000;
+      cursor: pointer;
+      padding: 6px;
+      transition: all 0.1s;
+      flex-shrink: 0;
     }
-    @media (max-width: 768px) {
-      .desktop-nav { display: none !important; }
-      .mobile-menu { display: block; }
+    .hamburger-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
     }
 
-    /* Hamburger animation */
     .hamburger-line {
       display: block;
-      width: 24px;
+      width: 20px;
       height: 3px;
       background: #00e676;
-      margin: 4px 0;
+      margin: 2px 0;
       transition: all 0.3s;
     }
     .hamburger-btn.open .hamburger-line:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 6px);
+      transform: rotate(45deg) translate(4px, 4px);
     }
     .hamburger-btn.open .hamburger-line:nth-child(2) {
       opacity: 0;
     }
     .hamburger-btn.open .hamburger-line:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -6px);
+      transform: rotate(-45deg) translate(4px, -4px);
+    }
+
+    /* Mobile Menu Panel */
+    .mobile-menu-panel {
+      display: none;
+      background: #16162a;
+      border-top: 3px solid #4a4a6a;
+      border-bottom: 3px solid #000;
+      padding: 12px 16px;
+      animation: slideDown 0.3s ease-out;
+    }
+    .mobile-menu-panel.open {
+      display: block;
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .desktop-nav { display: none !important; }
+      .hamburger-btn { display: flex; }
     }
   </style>
 </head>
@@ -406,8 +442,8 @@
   <!-- Particles -->
   <canvas id="particles" class="particles"></canvas>
 
-  <!-- Sound Toggle -->
-  <button class="sound-btn" id="soundToggle" onclick="toggleSound()">
+  <!-- Sound Toggle - BOTTOM RIGHT -->
+  <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Sonido">
     🔊
   </button>
 
@@ -434,9 +470,9 @@
   <!-- Main Content -->
   <div id="mainContent" class="hidden">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-40 bg-rpg-bg/90 backdrop-blur-sm border-b-4 border-black">
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-rpg-bg/95 backdrop-blur-sm border-b-4 border-black">
       <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <div class="font-pixel text-rpg-green text-xs sm:text-sm">⚔ ALEJANDRO.DEV</div>
+        <div class="font-pixel text-rpg-green text-[0.55rem] sm:text-sm">⚔ ALEJANDRO.DEV</div>
         <div class="desktop-nav flex gap-6 font-vt text-lg">
           <a href="#hero" class="nav-link text-gray-300 hover:text-rpg-green">Inicio</a>
           <a href="#stats" class="nav-link text-gray-300 hover:text-rpg-green">Stats</a>
@@ -444,20 +480,21 @@
           <a href="#inventory" class="nav-link text-gray-300 hover:text-rpg-green">Inventario</a>
           <a href="#contact" class="nav-link text-gray-300 hover:text-rpg-green">Contacto</a>
         </div>
-        <button class="mobile-menu hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <!-- Hamburger Button -->
+        <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Abrir menú">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
         </button>
       </div>
-      <!-- Mobile Menu -->
-      <div id="mobileMenu" class="hidden mobile-menu bg-rpg-dark border-t-2 border-rpg-border px-4 py-4">
-        <div class="flex flex-col gap-3 font-vt text-xl">
-          <a href="#hero" class="rpg-menu-item" onclick="toggleMobileMenu()">🏠 Inicio</a>
-          <a href="#stats" class="rpg-menu-item" onclick="toggleMobileMenu()">📊 Stats</a>
-          <a href="#quests" class="rpg-menu-item" onclick="toggleMobileMenu()"> Quests</a>
-          <a href="#inventory" class="rpg-menu-item" onclick="toggleMobileMenu()">🎒 Inventario</a>
-          <a href="#contact" class="rpg-menu-item" onclick="toggleMobileMenu()">💬 Contacto</a>
+      <!-- Mobile Menu Panel -->
+      <div id="mobileMenu" class="mobile-menu-panel">
+        <div class="flex flex-col gap-2 font-vt text-xl max-w-6xl mx-auto">
+          <a href="#hero" class="rpg-menu-item" onclick="closeMobileMenu()">🏠 Inicio</a>
+          <a href="#stats" class="rpg-menu-item" onclick="closeMobileMenu()">📊 Stats</a>
+          <a href="#quests" class="rpg-menu-item" onclick="closeMobileMenu()">📜 Quests</a>
+          <a href="#inventory" class="rpg-menu-item" onclick="closeMobileMenu()">🎒 Inventario</a>
+          <a href="#contact" class="rpg-menu-item" onclick="closeMobileMenu()">💬 Contacto</a>
         </div>
       </div>
     </nav>
@@ -662,7 +699,7 @@
               </div>
               <div class="flex-1">
                 <div class="flex items-center gap-2 mb-2 flex-wrap">
-                  <span class="font-vt text-lg text-rpg-yellow bg-rpg-yellow/20 px-2 py-1 border border-rpg-yellow"> EN PROGRESO</span>
+                  <span class="font-vt text-lg text-rpg-yellow bg-rpg-yellow/20 px-2 py-1 border border-rpg-yellow">⚡ EN PROGRESO</span>
                   <span class="level-badge">DIF: ★★★★</span>
                 </div>
                 <h3 class="font-pixel text-[0.6rem] sm:text-xs text-rpg-green mb-2">⛪ App Iglesia - Sistema de Gestión</h3>
@@ -712,7 +749,7 @@
               <span class="font-vt text-xs text-gray-400 mt-1">JS</span>
             </div>
             <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-blue/20 transition-colors cursor-pointer group" title="TypeScript">
-              <span class="text-2xl group-hover:scale-110 transition-transform"></span>
+              <span class="text-2xl group-hover:scale-110 transition-transform">🔷</span>
               <span class="font-vt text-xs text-gray-400 mt-1">TS</span>
             </div>
             <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-cyan/20 transition-colors cursor-pointer group" title="React">
@@ -740,7 +777,7 @@
               <span class="font-vt text-xs text-gray-400 mt-1">CSS</span>
             </div>
             <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-yellow/20 transition-colors cursor-pointer group" title="Tailwind">
-              <span class="text-2xl group-hover:scale-110 transition-transform"></span>
+              <span class="text-2xl group-hover:scale-110 transition-transform">🌊</span>
               <span class="font-vt text-xs text-gray-400 mt-1">Tailwind</span>
             </div>
             <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-green/20 transition-colors cursor-pointer group" title="Git">
@@ -751,25 +788,13 @@
               <span class="text-2xl group-hover:scale-110 transition-transform">🐳</span>
               <span class="font-vt text-xs text-gray-400 mt-1">Docker</span>
             </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-purple/20 transition-colors cursor-pointer group" title="GraphQL">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🔮</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">GraphQL</span>
-            </div>
             <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-red/20 transition-colors cursor-pointer group" title="REST API">
-              <span class="text-2xl group-hover:scale-110 transition-transform"></span>
+              <span class="text-2xl group-hover:scale-110 transition-transform">🔗</span>
               <span class="font-vt text-xs text-gray-400 mt-1">REST</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-blue/20 transition-colors cursor-pointer group" title="MongoDB">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🍃</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">Mongo</span>
             </div>
             <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-cyan/20 transition-colors cursor-pointer group" title="Linux">
               <span class="text-2xl group-hover:scale-110 transition-transform">🐧</span>
               <span class="font-vt text-xs text-gray-400 mt-1">Linux</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-yellow/20 transition-colors cursor-pointer group" title="Vite">
-              <span class="text-2xl group-hover:scale-110 transition-transform">⚡</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">Vite</span>
             </div>
           </div>
 
@@ -778,7 +803,7 @@
             <h3 class="font-pixel text-[0.6rem] text-rpg-yellow mb-4">⚔ EQUIPADO</h3>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="pixel-box bg-rpg-dark p-4 text-center">
-                <div class="text-3xl mb-2">️</div>
+                <div class="text-3xl mb-2">⚔️</div>
                 <div class="font-pixel text-[0.5rem] text-rpg-green mb-1">ESPADA PRINCIPAL</div>
                 <div class="font-vt text-lg text-gray-300">React + Next.js</div>
                 <div class="font-vt text-rpg-yellow text-sm">ATK +95</div>
@@ -830,7 +855,7 @@
             </div>
             <div class="flex flex-col sm:flex-row gap-3">
               <button type="submit" class="pixel-btn bg-rpg-green text-black px-6 py-3 font-pixel text-[0.5rem] sm:text-xs flex-1">
-                 ENVIAR MENSAJE
+                📨 ENVIAR MENSAJE
               </button>
             </div>
           </form>
@@ -840,10 +865,10 @@
             <h3 class="font-pixel text-[0.5rem] text-rpg-yellow mb-3">🔗 CONEXIONES</h3>
             <div class="flex flex-wrap gap-3">
               <a href="https://github.com/Alejvndro01" target="_blank" class="pixel-btn bg-rpg-dark text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
-                 GitHub
+                🐙 GitHub
               </a>
-              <a href="https://discord.com/users/alejvndro_01" target="_blank" class="pixel-btn bg-rpg-purple text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
-                 Discord: alejvndro_01
+              <a href="https://discord.com" target="_blank" class="pixel-btn bg-rpg-purple text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
+                🎮 Discord: alejvndro_01
               </a>
               <a href="mailto:alejvndro.arevalo@gmail.com" class="pixel-btn bg-rpg-yellow text-black px-4 py-2 font-vt text-lg flex items-center gap-2">
                 📧 Email
@@ -862,14 +887,14 @@
         <div class="mt-4 flex justify-center gap-4 flex-wrap">
           <span class="font-vt text-gray-600">💻 Code. Build. Deploy.</span>
           <span class="font-vt text-gray-600">|</span>
-          <span class="font-vt text-gray-600"> Always Learning.</span>
+          <span class="font-vt text-gray-600">🔄 Always Learning.</span>
         </div>
       </div>
     </footer>
   </div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 hidden">
+  <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 hidden">
     <div class="pixel-box bg-rpg-panel px-6 py-4 font-vt text-lg text-rpg-green">
       <span id="toastMsg">¡Mensaje enviado!</span>
     </div>
@@ -878,51 +903,59 @@
   <script>
     // Sound System
     let soundEnabled = true;
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let audioCtx = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioCtx;
+    }
 
     function playSound(type) {
       if (!soundEnabled) return;
       try {
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
+        const ctx = getAudioCtx();
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
         oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
+        gainNode.connect(ctx.destination);
         
         switch(type) {
           case 'click':
-            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.1);
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-            oscillator.start(audioCtx.currentTime);
-            oscillator.stop(audioCtx.currentTime + 0.1);
+            oscillator.frequency.setValueAtTime(800, ctx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + 0.1);
             break;
           case 'hover':
-            oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.05);
-            gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-            oscillator.start(audioCtx.currentTime);
-            oscillator.stop(audioCtx.currentTime + 0.05);
+            oscillator.frequency.setValueAtTime(600, ctx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.05);
+            gainNode.gain.setValueAtTime(0.05, ctx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + 0.05);
             break;
           case 'start':
-            oscillator.frequency.setValueAtTime(400, audioCtx.currentTime);
-            oscillator.frequency.setValueAtTime(500, audioCtx.currentTime + 0.1);
-            oscillator.frequency.setValueAtTime(600, audioCtx.currentTime + 0.2);
-            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime + 0.3);
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-            oscillator.start(audioCtx.currentTime);
-            oscillator.stop(audioCtx.currentTime + 0.5);
+            oscillator.frequency.setValueAtTime(400, ctx.currentTime);
+            oscillator.frequency.setValueAtTime(500, ctx.currentTime + 0.1);
+            oscillator.frequency.setValueAtTime(600, ctx.currentTime + 0.2);
+            oscillator.frequency.setValueAtTime(800, ctx.currentTime + 0.3);
+            gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + 0.5);
             break;
           case 'success':
-            oscillator.frequency.setValueAtTime(523, audioCtx.currentTime);
-            oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
-            oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-            oscillator.start(audioCtx.currentTime);
-            oscillator.stop(audioCtx.currentTime + 0.4);
+            oscillator.frequency.setValueAtTime(523, ctx.currentTime);
+            oscillator.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+            oscillator.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
+            gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + 0.4);
             break;
         }
       } catch(e) {}
@@ -931,7 +964,7 @@
     function toggleSound() {
       soundEnabled = !soundEnabled;
       document.getElementById('soundToggle').textContent = soundEnabled ? '🔊' : '🔇';
-      playSound('click');
+      if (soundEnabled) playSound('click');
     }
 
     // Start Game
@@ -952,9 +985,23 @@
     // Mobile Menu
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
-      const btn = document.querySelector('.hamburger-btn');
-      menu.classList.toggle('hidden');
-      btn.classList.toggle('open');
+      const btn = document.getElementById('hamburgerBtn');
+      const isOpen = menu.classList.contains('open');
+      
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        menu.classList.add('open');
+        btn.classList.add('open');
+        playSound('click');
+      }
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('hamburgerBtn');
+      menu.classList.remove('open');
+      btn.classList.remove('open');
       playSound('click');
     }
 
