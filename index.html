@@ -517,10 +517,7 @@
       </div>
       <div class="mb-12">
         <div class="w-32 h-32 sm:w-48 sm:h-48 mx-auto float-anim pixel-box overflow-hidden bg-rpg-dark">
-          <!-- ============================================= -->
-          <!-- 📸 FOTO DE INICIO: Reemplaza "./assets/foto.png" por la ruta de tu foto -->
-          <!-- ============================================= -->
-          <img src="./assets/foto.png" 
+          <img src="./assets/yo.jpg" onerror="this.onerror=null; this.src='./assets/foto.png';" 
                alt="Alejandro" class="w-full h-full object-cover" style="image-rendering: auto;">
         </div>
       </div>
@@ -569,10 +566,7 @@
             <!-- Avatar -->
             <div class="relative">
               <div class="w-32 h-32 sm:w-40 sm:h-40 bg-rpg-dark pixel-box flex items-center justify-center overflow-hidden float-anim">
-                <!-- ============================================= -->
-                <!-- 📸 FOTO HERO: Reemplaza "./assets/foto.png" por la ruta de tu foto -->
-                <!-- ============================================= -->
-                <img src="./assets/foto.png" 
+                <img src="./assets/yo.jpg" onerror="this.onerror=null; this.src='./assets/foto.png';" 
                      alt="Alejandro Dev" class="w-full h-full object-cover" style="image-rendering: auto;">
               </div>
               <div class="absolute -bottom-2 -right-2 level-badge">LV.24</div>
@@ -760,7 +754,7 @@
                 </div>
                 <div class="flex items-center justify-between flex-wrap gap-2">
                   <span class="font-vt text-rpg-yellow text-lg">Progreso: 60%</span>
-                  <a href="https://github.com/Alejvndro01/app-iglesia" target="_blank" class="pixel-btn bg-rpg-dark text-white px-4 py-2 font-pixel text-[0.5rem]">📂 VER CÓDIGO</a>
+                  <a href="https://github.com/Alejvndro01/app-iglesia" target="_blank" rel="noopener noreferrer" class="pixel-btn bg-rpg-dark text-white px-4 py-2 font-pixel text-[0.5rem]">📂 VER CÓDIGO</a>
                 </div>
               </div>
             </div>
@@ -882,17 +876,19 @@
             </div>
           </div>
           
-          <form id="contactForm" class="space-y-4" onsubmit="handleSubmit(event)" novalidate>
+          <form id="contactForm" class="space-y-4" action="https://formspree.io/f/xoeabzba" method="POST" onsubmit="handleSubmit(event)" novalidate>
             <!-- NOMBRE -->
             <div>
               <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">TU NOMBRE:</label>
               <input 
                 type="text" 
                 id="inputName" 
+                name="name"
                 class="rpg-input" 
                 placeholder="Ingresa tu nombre..." 
                 maxlength="40"
                 autocomplete="name"
+                required
               >
               <div id="errorName" class="error-msg"></div>
               <div id="successName" class="success-indicator">Nombre válido</div>
@@ -904,13 +900,31 @@
               <input 
                 type="email" 
                 id="inputEmail" 
+                name="email"
                 class="rpg-input" 
                 placeholder="tu@email.com" 
                 maxlength="60"
                 autocomplete="email"
+                required
               >
               <div id="errorEmail" class="error-msg"></div>
               <div id="successEmail" class="success-indicator">Email válido</div>
+            </div>
+
+            <!-- CONFIRMAR EMAIL -->
+            <div>
+              <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">CONFIRMAR TU EMAIL:</label>
+              <input 
+                type="email" 
+                id="inputEmailConfirm" 
+                class="rpg-input" 
+                placeholder="Repite tu@email.com" 
+                maxlength="60"
+                autocomplete="off"
+                required
+              >
+              <div id="errorEmailConfirm" class="error-msg"></div>
+              <div id="successEmailConfirm" class="success-indicator">Emails coinciden</div>
             </div>
 
             <!-- MENSAJE -->
@@ -918,10 +932,12 @@
               <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">MENSAJE:</label>
               <textarea 
                 id="inputMessage" 
+                name="message"
                 class="rpg-input" 
                 style="height: 128px; resize: none;" 
                 placeholder="Describe tu proyecto o idea..." 
                 maxlength="500"
+                required
               ></textarea>
               <div class="flex justify-between items-start gap-2">
                 <div id="errorMessage" class="error-msg flex-1"></div>
@@ -941,11 +957,11 @@
           <div class="mt-6 pt-6 border-t-2 border-rpg-border">
             <h3 class="font-pixel text-[0.5rem] text-rpg-yellow mb-3">🔗 CONEXIONES</h3>
             <div class="flex flex-wrap gap-3">
-              <a href="https://github.com/Alejvndro01" target="_blank" class="pixel-btn bg-rpg-dark text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
+              <a href="https://github.com/Alejvndro01" target="_blank" rel="noopener noreferrer" class="pixel-btn bg-rpg-dark text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
                 🐙 GitHub
               </a>
-              <a href="https://discord.com" target="_blank" class="pixel-btn bg-rpg-purple text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
-                🎮 Discord: alejvndro_01
+              <a href="https://discord.gg/eryZTDH4k" target="_blank" rel="noopener noreferrer" class="pixel-btn bg-rpg-purple text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
+                🎮 Discord: SV: Alejvndro Dev
               </a>
               <a href="mailto:alejvndro.arevalo@gmail.com" class="pixel-btn bg-rpg-yellow text-black px-4 py-2 font-vt text-lg flex items-center gap-2">
                 📧 Email
@@ -1074,6 +1090,15 @@
         if (trimmed.length > 60) return '⚠ Email demasiado largo';
         return null;
       },
+      emailConfirm: (value) => {
+        const trimmed = value.trim();
+        if (trimmed.length === 0) return '⚠ Confirma tu email';
+        const originalEmail = document.getElementById('inputEmail').value.trim();
+        if (trimmed.toLowerCase() !== originalEmail.toLowerCase()) {
+          return '⚠ Los correos no coinciden';
+        }
+        return null;
+      },
       message: (value) => {
         const trimmed = value.trim();
         if (trimmed.length === 0) return '⚠ El mensaje es obligatorio';
@@ -1122,7 +1147,6 @@
       const input = document.getElementById('input' + fieldId);
       const value = input.value;
       
-      // Si está vacío y nunca se ha tocado, no mostrar error
       if (value.trim().length === 0 && !input.dataset.touched) {
         clearField(fieldId);
         return false;
@@ -1138,7 +1162,6 @@
       }
     }
 
-    // Character counter for message
     function updateCharCounter() {
       const input = document.getElementById('inputMessage');
       const counter = document.getElementById('charCounter');
@@ -1150,13 +1173,12 @@
       else if (length > 350) counter.classList.add('warning');
     }
 
-    // Attach validation events
     function initFormValidation() {
       const nameInput = document.getElementById('inputName');
       const emailInput = document.getElementById('inputEmail');
+      const emailConfirmInput = document.getElementById('inputEmailConfirm');
       const messageInput = document.getElementById('inputMessage');
 
-      // NAME
       nameInput.addEventListener('blur', () => {
         nameInput.dataset.touched = 'true';
         validateField('Name', 'name');
@@ -1165,16 +1187,24 @@
         if (nameInput.dataset.touched) validateField('Name', 'name');
       });
 
-      // EMAIL
       emailInput.addEventListener('blur', () => {
         emailInput.dataset.touched = 'true';
         validateField('Email', 'email');
+        if (emailConfirmInput.dataset.touched) validateField('EmailConfirm', 'emailConfirm');
       });
       emailInput.addEventListener('input', () => {
         if (emailInput.dataset.touched) validateField('Email', 'email');
+        if (emailConfirmInput.dataset.touched) validateField('EmailConfirm', 'emailConfirm');
       });
 
-      // MESSAGE
+      emailConfirmInput.addEventListener('blur', () => {
+        emailConfirmInput.dataset.touched = 'true';
+        validateField('EmailConfirm', 'emailConfirm');
+      });
+      emailConfirmInput.addEventListener('input', () => {
+        if (emailConfirmInput.dataset.touched) validateField('EmailConfirm', 'emailConfirm');
+      });
+
       messageInput.addEventListener('blur', () => {
         messageInput.dataset.touched = 'true';
         validateField('Message', 'message');
@@ -1224,41 +1254,68 @@
       playSound('click');
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
       
-      // Marcar todos como touched
       document.getElementById('inputName').dataset.touched = 'true';
       document.getElementById('inputEmail').dataset.touched = 'true';
+      document.getElementById('inputEmailConfirm').dataset.touched = 'true';
       document.getElementById('inputMessage').dataset.touched = 'true';
       
       const nameValid = validateField('Name', 'name');
       const emailValid = validateField('Email', 'email');
+      const emailConfirmValid = validateField('EmailConfirm', 'emailConfirm');
       const messageValid = validateField('Message', 'message');
       
-      if (!nameValid || !emailValid || !messageValid) {
+      if (!nameValid || !emailValid || !emailConfirmValid || !messageValid) {
         playSound('error');
         showToast('⚠ Revisa los campos marcados en rojo', true);
         
-        // Focus al primer campo con error
         if (!nameValid) document.getElementById('inputName').focus();
         else if (!emailValid) document.getElementById('inputEmail').focus();
+        else if (!emailConfirmValid) document.getElementById('inputEmailConfirm').focus();
         else document.getElementById('inputMessage').focus();
         return;
       }
-      
-      playSound('success');
-      showToast('¡Quest recibida! Te contactaré pronto. 🎮');
-      e.target.reset();
-      
-      // Limpiar estados
-      ['Name', 'Email', 'Message'].forEach(clearField);
-      updateCharCounter();
-      
-      // Reset touched
-      document.getElementById('inputName').dataset.touched = '';
-      document.getElementById('inputEmail').dataset.touched = '';
-      document.getElementById('inputMessage').dataset.touched = '';
+
+      const form = e.target;
+      const submitBtn = document.getElementById('submitBtn');
+      const formData = new FormData(form);
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '⏳ ENVIANDO...';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          playSound('success');
+          showToast('¡Quest recibida! Te contactaré pronto. 🎮');
+          form.reset();
+          
+          ['Name', 'Email', 'EmailConfirm', 'Message'].forEach(clearField);
+          updateCharCounter();
+          
+          document.getElementById('inputName').dataset.touched = '';
+          document.getElementById('inputEmail').dataset.touched = '';
+          document.getElementById('inputEmailConfirm').dataset.touched = '';
+          document.getElementById('inputMessage').dataset.touched = '';
+        } else {
+          throw new Error('Error en Formspree');
+        }
+      } catch (err) {
+        playSound('error');
+        showToast('⚠ Error al enviar. Intenta de nuevo más tarde.', true);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '📨 ENVIAR MENSAJE';
+      }
     }
 
     function showToast(msg, isError = false) {
@@ -1348,5 +1405,3 @@
   </script>
 </body>
 </html>
-<img src="./assets/foto.png" alt="Alejandro" ...>
-<img src="./assets/yo.jpg" alt="Alejandro" ...>
