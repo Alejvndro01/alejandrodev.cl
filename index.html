@@ -334,15 +334,12 @@
     <video 
       id="scrollVideo" 
       src="assets/scroll-bg.mp4" 
-      preload="auto" 
+      preload="metadata" 
       muted 
-      autoplay
       playsinline 
       webkit-playsinline
-      crossorigin="anonymous"
       class="w-full h-full object-cover opacity-60">
     </video>
-    <!-- Capa de contraste suave -->
     <div class="absolute inset-0 bg-coffee-900/50 backdrop-brightness-90"></div>
   </div>
 
@@ -392,7 +389,7 @@
     <div class="absolute bottom-8 left-8 right-8">
       <div class="text-sm text-coffee-200 mb-3">Síguenos</div>
       <div class="flex gap-3">
-        <a href="https://www.instagram.com/alejandrodev.cl//" target="_blank" class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors text-lg">📷</a>
+        <a href="https://www.instagram.com/alejandrovanderval/" target="_blank" class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors text-lg">📷</a>
         <a href="https://github.com/Alejvndro01" target="_blank" class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors text-lg">🐙</a>
         <a href="https://wa.me/56963558009" target="_blank" class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors text-lg">💬</a>
       </div>
@@ -1124,15 +1121,14 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // CONTROL GLOBAL DE VIDEO POR SCROLL (OPTIMIZADO PARA GITHUB PAGES)
+    // CONTROL GLOBAL DE VIDEO POR SCROLL
     const scrollVideo = document.getElementById('scrollVideo');
 
     if (scrollVideo) {
       let isVideoTicking = false;
-      let isReady = false;
 
-      const syncGlobalVideo = () => {
-        if (!isReady || !scrollVideo.duration || isNaN(scrollVideo.duration)) {
+      const syncVideo = () => {
+        if (!scrollVideo.duration || isNaN(scrollVideo.duration)) {
           isVideoTicking = false;
           return;
         }
@@ -1150,35 +1146,20 @@
         isVideoTicking = false;
       };
 
-      const setupVideo = () => {
-        const playPromise = scrollVideo.play();
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            scrollVideo.pause();
-            isReady = true;
-            syncGlobalVideo();
-          }).catch(() => {
-            scrollVideo.pause();
-            isReady = true;
-            syncGlobalVideo();
-          });
-        } else {
-          scrollVideo.pause();
-          isReady = true;
-          syncGlobalVideo();
-        }
+      const onReady = () => {
+        scrollVideo.currentTime = 0.001;
+        syncVideo();
       };
 
-      if (scrollVideo.readyState >= 3) {
-        setupVideo();
+      if (scrollVideo.readyState >= 1) {
+        onReady();
       } else {
-        scrollVideo.addEventListener('canplay', setupVideo, { once: true });
-        scrollVideo.addEventListener('loadeddata', setupVideo, { once: true });
+        scrollVideo.addEventListener('loadedmetadata', onReady, { once: true });
       }
 
       window.addEventListener('scroll', () => {
         if (!isVideoTicking) {
-          window.requestAnimationFrame(syncGlobalVideo);
+          window.requestAnimationFrame(syncVideo);
           isVideoTicking = true;
         }
       }, { passive: true });
