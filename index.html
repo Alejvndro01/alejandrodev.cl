@@ -127,10 +127,6 @@
       0%, 100% { box-shadow: 0 0 0 0 rgba(107,68,35,0.4); }
       50% { box-shadow: 0 0 0 15px rgba(107,68,35,0); }
     }
-    @keyframes steam {
-      0% { transform: translateY(0) scaleX(1); opacity: 0.5; }
-      100% { transform: translateY(-30px) scaleX(1.5); opacity: 0; }
-    }
 
     .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; }
     .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
@@ -301,7 +297,6 @@
       opacity: 1;
     }
 
-    /* Avatar frame */
     .avatar-frame {
       position: relative;
       padding: 6px;
@@ -321,14 +316,12 @@
       border-radius: 50%;
     }
 
-    /* Shield badge */
     .shield-badge {
       background: linear-gradient(135deg, #6b4423, #3d2817);
       color: #faf3e8;
       border: 2px solid #c9a876;
     }
 
-    /* Tag */
     .tag {
       display: inline-flex;
       align-items: center;
@@ -348,7 +341,6 @@
       border-color: rgba(201,168,118,0.3);
     }
 
-    /* Progress bar */
     .progress-bar {
       height: 8px;
       background: rgba(107,68,35,0.1);
@@ -362,13 +354,11 @@
       transition: width 1.5s ease-out;
     }
 
-    /* Handwritten accent */
     .hand-accent {
       font-family: 'Caveat', cursive;
       color: #6b4423;
     }
 
-    /* Quote decoration */
     .quote-mark {
       font-family: 'Playfair Display', serif;
       font-size: 6rem;
@@ -435,7 +425,6 @@
 
   <!-- Hero Section -->
   <section id="inicio" class="hero-bg min-h-screen flex items-center pt-20 relative">
-    <!-- Coffee rings decoration -->
     <div class="coffee-ring" style="top: 10%; right: 5%;"></div>
     <div class="coffee-ring" style="bottom: 15%; left: 8%; width: 120px; height: 120px;"></div>
 
@@ -457,7 +446,7 @@
           </h1>
           
           <p class="text-lg text-cream/70 mb-4 max-w-lg animate-fade-up" style="animation-delay: 0.6s; opacity: 0; animation-fill-mode: forwards;">
-            Páginas web que venden. Sin comisiones, sin enredos. Desarrollo seguro, estable y tranquilo.
+            Páginas web directas. Cobros 100% por transferencias bancarias, sin pasarelas invasivas, sin comisiones externas.
           </p>
 
           <p class="font-hand text-2xl text-coffee-200 mb-8 animate-fade-up" style="animation-delay: 0.7s; opacity: 0; animation-fill-mode: forwards;">
@@ -477,7 +466,7 @@
           <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-cream/10 animate-fade-up" style="animation-delay: 1s; opacity: 0; animation-fill-mode: forwards;">
             <div>
               <div class="font-display text-3xl font-bold text-coffee-200">100%</div>
-              <div class="text-sm text-cream/60 mt-1">Sin comisiones</div>
+              <div class="text-sm text-cream/60 mt-1">Directo a tu banco</div>
             </div>
             <div>
               <div class="font-display text-3xl font-bold text-coffee-200">24h</div>
@@ -500,7 +489,6 @@
                    onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80'">
             </div>
             
-            <!-- Floating badges -->
             <div class="absolute -top-4 -right-4 shield-badge px-4 py-2 rounded-full flex items-center gap-2 shadow-xl">
               <span class="text-lg">🛡️</span>
               <div>
@@ -514,14 +502,12 @@
               <div class="text-xs text-coffee-600">→ Biobío, Chile</div>
             </div>
 
-            <!-- Decorative coffee cup -->
             <div class="absolute top-1/2 -right-8 text-4xl opacity-60">☕</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Scroll indicator -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
       <div class="w-6 h-10 border-2 border-cream/30 rounded-full flex justify-center pt-2">
         <div class="w-1 h-3 bg-coffee-200 rounded-full animate-bounce"></div>
@@ -541,10 +527,10 @@
           </h2>
           <div class="section-divider mb-6"></div>
           <p class="text-coffee-700 text-lg leading-relaxed mb-4">
-            Soy <strong class="text-coffee-900">Alejandro</strong>, desarrollador full stack en Hualqui, Biobío. Creo páginas web y software para negocios locales que quieren vender más, sin pagar comisiones a plataformas.
+            Soy <strong class="text-coffee-900">Alejandro</strong>, desarrollador full stack en Hualqui, Biobío. Creo sitios web y herramientas digitales para negocios locales que quieren mostrar sus productos y recibir pagos directos por transferencia, sin retenciones ni comisiones de intermediarios.
           </p>
           <p class="text-coffee-600 leading-relaxed mb-6">
-            Mi enfoque es simple: escucho tu idea, te muestro el diseño, lo construimos juntos y te enseño a usarlo. Sin jerga técnica, sin sorpresas, sin enredos.
+            Mi enfoque es simple: escucho tu idea, te muestro el diseño, lo construimos juntos y te enseño a gestionar los pedidos y transferencias. Sin jerga técnica, sin sorpresas, sin enredos.
           </p>
           
           <div class="grid grid-cols-2 gap-4">
@@ -556,7 +542,7 @@
               </div>
             </div>
             <div class="flex items-start gap-3">
-              <div class="w-10 h-10 bg-coffee-100 rounded-lg flex items-center justify-center flex-shrink-0"></div>
+              <div class="w-10 h-10 bg-coffee-100 rounded-lg flex items-center justify-center flex-shrink-0">⚡</div>
               <div>
                 <div class="font-semibold text-coffee-900 text-sm">Entrega ágil</div>
                 <div class="text-xs text-coffee-600">Sin prisas, sin retrasos</div>
@@ -583,7 +569,7 @@
           <div class="bg-white rounded-3xl p-8 shadow-xl border border-coffee-100 relative">
             <div class="quote-mark -top-4 -left-2">"</div>
             <p class="font-display text-xl text-coffee-800 italic mb-6 relative z-10">
-              Sin comisiones, sin enredos. Te entrego una página web que vende, te enseño a usarla y te acompaño después.
+              Sin intermediarios ni comisiones abusivas. Te entrego una plataforma clara para recibir transferencias directas a tu cuenta.
             </p>
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-coffee-200">
@@ -609,32 +595,32 @@
       <div class="text-center mb-16 reveal">
         <span class="hand-accent text-3xl mb-2 block text-coffee-200">Lo que hago</span>
         <h2 class="font-display text-4xl sm:text-5xl font-bold mb-4">
-          Servicios que <span class="italic text-coffee-200">venden</span>
+          Servicios <span class="italic text-coffee-200">claros y funcionales</span>
         </h2>
         <div class="section-divider mx-auto mb-6"></div>
         <p class="text-cream/70 max-w-2xl mx-auto text-lg">
-          Deja el WhatsApp desordenado. Vende con tu propia tienda digital.
+          Catálogos limpios, recepción de comprobantes y pedidos directos a tu banco.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Servicio 1 -->
         <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
-          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">🛒</div>
-          <h3 class="font-display text-xl font-bold mb-2 text-cream">E-Commerce</h3>
-          <p class="text-cream/70 text-sm mb-4">Tienda online completa para tu restaurante o negocio. Catálogo, carrito y pagos integrados.</p>
+          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">📋</div>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Catálogo Digital</h3>
+          <p class="text-cream/70 text-sm mb-4">Vitrina online para mostrar tus productos de forma atractiva, organizada y siempre actualizada.</p>
           <div class="flex flex-wrap gap-2">
             <span class="tag tag-gold">Catálogo</span>
-            <span class="tag tag-gold">Carrito</span>
-            <span class="tag tag-gold">Pagos</span>
+            <span class="tag tag-gold">Visual</span>
+            <span class="tag tag-gold">Filtros</span>
           </div>
         </div>
 
         <!-- Servicio 2 -->
         <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
           <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">📱</div>
-          <h3 class="font-display text-xl font-bold mb-2 text-cream">Carta Digital</h3>
-          <p class="text-cream/70 text-sm mb-4">Menú digital interactivo con códigos QR. Actualiza precios y productos al instante.</p>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Carta Digital QR</h3>
+          <p class="text-cream/70 text-sm mb-4">Menú digital interactivo accesible vía QR. Actualiza precios, combos y disponibilidad al instante.</p>
           <div class="flex flex-wrap gap-2">
             <span class="tag tag-gold">QR</span>
             <span class="tag tag-gold">Móvil</span>
@@ -646,7 +632,7 @@
         <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
           <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">📦</div>
           <h3 class="font-display text-xl font-bold mb-2 text-cream">Sistema de Pedidos</h3>
-          <p class="text-cream/70 text-sm mb-4">Recibe pedidos organizados directo a tu WhatsApp o panel. Adiós al caos.</p>
+          <p class="text-cream/70 text-sm mb-4">Recibe solicitudes detalladas listas para despachar directo a tu WhatsApp o panel interno.</p>
           <div class="flex flex-wrap gap-2">
             <span class="tag tag-gold">WhatsApp</span>
             <span class="tag tag-gold">Panel</span>
@@ -656,21 +642,21 @@
 
         <!-- Servicio 4 -->
         <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
-          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4"></div>
-          <h3 class="font-display text-xl font-bold mb-2 text-cream">Pagos Integrados</h3>
-          <p class="text-cream/70 text-sm mb-4">Acepta tarjetas, transferencias y pagos digitales. Todo seguro y automatizado.</p>
+          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">🏦</div>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Gestión de Transferencias</h3>
+          <p class="text-cream/70 text-sm mb-4">Datos de cuenta claros, carga de comprobantes de pago y verificación manual sin pasarelas.</p>
           <div class="flex flex-wrap gap-2">
-            <span class="tag tag-gold">Webpay</span>
-            <span class="tag tag-gold">Stripe</span>
-            <span class="tag tag-gold">SSL</span>
+            <span class="tag tag-gold">Directo</span>
+            <span class="tag tag-gold">0% Comisión</span>
+            <span class="tag tag-gold">Comprobantes</span>
           </div>
         </div>
 
         <!-- Servicio 5 -->
         <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
           <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">🌐</div>
-          <h3 class="font-display text-xl font-bold mb-2 text-cream">Página Web</h3>
-          <p class="text-cream/70 text-sm mb-4">Sitio web profesional que vende. Diseño a medida, rápido y optimizado para Google.</p>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Sitio Web Corporativo</h3>
+          <p class="text-cream/70 text-sm mb-4">Presencia online sólida y profesional. Carga ultrarrápida, diseño responsivo y optimizado para SEO.</p>
           <div class="flex flex-wrap gap-2">
             <span class="tag tag-gold">SEO</span>
             <span class="tag tag-gold">Responsive</span>
@@ -681,8 +667,8 @@
         <!-- Servicio 6 -->
         <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
           <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">🎓</div>
-          <h3 class="font-display text-xl font-bold mb-2 text-cream">Capacitación</h3>
-          <p class="text-cream/70 text-sm mb-4">Te enseño a usar tu sitio. Videos, manuales y soporte post-lanzamiento incluido.</p>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Capacitación y Soporte</h3>
+          <p class="text-cream/70 text-sm mb-4">Te enseño a gestionar los pedidos y actualizar tu contenido mediante guías claras y soporte continuo.</p>
           <div class="flex flex-wrap gap-2">
             <span class="tag tag-gold">Videos</span>
             <span class="tag tag-gold">Soporte</span>
@@ -710,7 +696,6 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-6 relative">
-        <!-- Connecting line -->
         <div class="hidden md:block absolute top-16 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-coffee-200 via-coffee-400 to-coffee-200"></div>
 
         <!-- Paso 1 -->
@@ -718,12 +703,12 @@
           <div class="w-12 h-12 bg-gradient-to-br from-coffee-500 to-coffee-700 text-cream rounded-full flex items-center justify-center font-display font-bold text-xl mb-6 relative z-10 shadow-lg">1</div>
           <div class="text-4xl mb-4">👂</div>
           <h3 class="font-display text-xl font-bold mb-3 text-coffee-900">Escucho tu idea</h3>
-          <p class="text-coffee-600 mb-4">Conversamos. Entiendo el problema, tus objetivos y lo que realmente necesitas.</p>
+          <p class="text-coffee-600 mb-4">Conversamos. Entiendo el problema, tus productos y la forma en que operas tus ventas.</p>
           <p class="font-hand text-xl text-coffee-500 italic">Sin jerga, solo claridad.</p>
           <div class="mt-4 pt-4 border-t border-coffee-100">
             <div class="flex flex-wrap gap-2">
               <span class="tag">📞 Llamada 15 min</span>
-              <span class="tag"> Briefing</span>
+              <span class="tag">📝 Briefing</span>
             </div>
           </div>
         </div>
@@ -733,11 +718,11 @@
           <div class="w-12 h-12 bg-gradient-to-br from-coffee-500 to-coffee-700 text-cream rounded-full flex items-center justify-center font-display font-bold text-xl mb-6 relative z-10 shadow-lg">2</div>
           <div class="text-4xl mb-4">✏️</div>
           <h3 class="font-display text-xl font-bold mb-3 text-coffee-900">Te muestro el diseño</h3>
-          <p class="text-coffee-600 mb-4">Boceto y propuesta visual. Te presento el diseño y ajustamos juntos hasta que encaje.</p>
+          <p class="text-coffee-600 mb-4">Estructura del catálogo y flujo de pedidos por transferencia. Ajustamos juntos antes de codificar.</p>
           <p class="font-hand text-xl text-coffee-500 italic">Tú apruebas cada paso.</p>
           <div class="mt-4 pt-4 border-t border-coffee-100">
             <div class="flex flex-wrap gap-2">
-              <span class="tag"> Boceto</span>
+              <span class="tag">🎨 Boceto</span>
               <span class="tag">🔄 Ajustes</span>
             </div>
           </div>
@@ -748,12 +733,12 @@
           <div class="w-12 h-12 bg-gradient-to-br from-coffee-500 to-coffee-700 text-cream rounded-full flex items-center justify-center font-display font-bold text-xl mb-6 relative z-10 shadow-lg">3</div>
           <div class="text-4xl mb-4">🚀</div>
           <h3 class="font-display text-xl font-bold mb-3 text-coffee-900">Lanzamos y te enseño</h3>
-          <p class="text-coffee-600 mb-4">Publicamos. Te entrego todo y te enseño a usarlo. Seguimiento y soporte incluidos.</p>
+          <p class="text-coffee-600 mb-4">Publicamos. Te enseño a gestionar los pedidos y validar comprobantes de transferencia.</p>
           <p class="font-hand text-xl text-coffee-500 italic">No te dejo solo nunca.</p>
           <div class="mt-4 pt-4 border-t border-coffee-100">
             <div class="flex flex-wrap gap-2">
               <span class="tag">🌐 Publicación</span>
-              <span class="tag"> Capacitación</span>
+              <span class="tag">📚 Capacitación</span>
             </div>
           </div>
         </div>
@@ -796,7 +781,7 @@
           </div>
           <div class="p-6">
             <h3 class="font-display text-xl font-bold mb-2 text-coffee-900">App Iglesia - Sistema de Gestión</h3>
-            <p class="text-coffee-600 text-sm mb-4">Aplicación web para la gestión integral de una iglesia. Módulos de membresía, eventos, contribuciones y reportes.</p>
+            <p class="text-coffee-600 text-sm mb-4">Aplicación web para la gestión integral de una iglesia. Módulos de membresía, eventos, registro de aportes y reportes.</p>
             <div class="flex flex-wrap gap-2 mb-4">
               <span class="tag">React</span>
               <span class="tag">Node.js</span>
@@ -818,7 +803,7 @@
           </div>
         </div>
 
-        <!-- Proyecto 2: E-commerce Restaurantes -->
+        <!-- Proyecto 2: Catálogo & Pedidos Gastronomía -->
         <div class="project-card rounded-2xl overflow-hidden reveal">
           <div class="h-48 bg-gradient-to-br from-coffee-500 to-coffee-700 flex items-center justify-center relative overflow-hidden">
             <div class="absolute inset-0 opacity-20">
@@ -826,19 +811,19 @@
             </div>
             <div class="text-center relative z-10">
               <div class="text-5xl mb-2">🍽️</div>
-              <div class="font-hand text-2xl text-cream">E-Commerce</div>
+              <div class="font-hand text-2xl text-cream">Menú Digital</div>
             </div>
             <div class="absolute top-4 right-4 bg-cream text-coffee-900 px-3 py-1 rounded-full text-xs font-bold">
               SERVICIO DISPONIBLE
             </div>
           </div>
           <div class="p-6">
-            <h3 class="font-display text-xl font-bold mb-2 text-coffee-900">E-Commerce para Restaurantes</h3>
-            <p class="text-coffee-600 text-sm mb-4">Deja el WhatsApp desordenado. Vende con tu propia tienda: carta digital, pedidos organizados y pagos integrados.</p>
+            <h3 class="font-display text-xl font-bold mb-2 text-coffee-900">Menú Digital y Gestión de Pedidos</h3>
+            <p class="text-coffee-600 text-sm mb-4">Catálogo online interactivo: los clientes arman su pedido, visualizan los datos bancarios y envían su comprobante directo por WhatsApp.</p>
             <div class="flex flex-wrap gap-2 mb-4">
               <span class="tag">Carta Digital</span>
               <span class="tag">Pedidos</span>
-              <span class="tag">Pagos</span>
+              <span class="tag">Transferencia Directa</span>
               <span class="tag">WhatsApp</span>
             </div>
             <div class="mb-4">
@@ -861,111 +846,95 @@
       <div class="mt-6 project-card rounded-2xl p-8 text-center reveal border-dashed border-2 border-coffee-200 bg-white/50">
         <div class="text-4xl mb-3">☕</div>
         <h3 class="font-display text-lg font-bold text-coffee-900 mb-2">Próximos proyectos</h3>
-        <p class="text-coffee-600 text-sm">Más trabajos en desarrollo con paz y calma...</p>
+        <p class="text-coffee-600 text-sm">Más herramientas y sistemas en desarrollo con paz y calma...</p>
       </div>
     </div>
   </section>
 
   <!-- Stack Section -->
-<section id="stack" class="py-20 lg:py-28 bg-coffee-900 text-cream relative overflow-hidden">
-  <div class="coffee-ring" style="top: 20%; left: -100px; opacity: 0.2;"></div>
-  
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="text-center mb-16 reveal">
-      <span class="hand-accent text-3xl mb-2 block text-coffee-200">Tecnologías</span>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold mb-4">
-        Mi <span class="italic text-coffee-200">stack</span>
-      </h2>
-      <div class="section-divider mx-auto mb-6"></div>
-      <p class="text-cream/70 max-w-2xl mx-auto text-lg">
-        Herramientas modernas para construir software con paz.
-      </p>
-    </div>
+  <section id="stack" class="py-20 lg:py-28 bg-coffee-900 text-cream relative overflow-hidden">
+    <div class="coffee-ring" style="top: 20%; left: -100px; opacity: 0.2;"></div>
+    
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="hand-accent text-3xl mb-2 block text-coffee-200">Tecnologías</span>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold mb-4">
+          Mi <span class="italic text-coffee-200">stack</span>
+        </h2>
+        <div class="section-divider mx-auto mb-6"></div>
+        <p class="text-cream/70 max-w-2xl mx-auto text-lg">
+          Herramientas modernas para construir software con paz.
+        </p>
+      </div>
 
-    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 mb-12">
-      <!-- JavaScript -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🟨</div>
-        <div class="text-xs text-cream/70">JavaScript</div>
-      </div>
-      <!-- TypeScript -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🔷</div>
-        <div class="text-xs text-cream/70">TypeScript</div>
-      </div>
-      <!-- React -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">⚛️</div>
-        <div class="text-xs text-cream/70">React</div>
-      </div>
-      <!-- Next.js -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">▲</div>
-        <div class="text-xs text-cream/70">Next.js</div>
-      </div>
-      <!-- Node.js (Faltaba icono) -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🟢</div>
-        <div class="text-xs text-cream/70">Node.js</div>
-      </div>
-      <!-- SQL -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🗄️</div>
-        <div class="text-xs text-cream/70">SQL</div>
-      </div>
-      <!-- HTML5 -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🌐</div>
-        <div class="text-xs text-cream/70">HTML5</div>
-      </div>
-      <!-- CSS3 -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🎨</div>
-        <div class="text-xs text-cream/70">CSS3</div>
-      </div>
-      <!-- Tailwind -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🌊</div>
-        <div class="text-xs text-cream/70">Tailwind</div>
-      </div>
-      <!-- Git -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">📦</div>
-        <div class="text-xs text-cream/70">Git</div>
-      </div>
-      <!-- Docker (Faltaba icono) -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🐳</div>
-        <div class="text-xs text-cream/70">Docker</div>
-      </div>
-      <!-- REST API -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🔗</div>
-        <div class="text-xs text-cream/70">REST API</div>
-      </div>
-      <!-- Linux -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🐧</div>
-        <div class="text-xs text-cream/70">Linux</div>
-      </div>
-      <!-- Vite -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">⚡</div>
-        <div class="text-xs text-cream/70">Vite</div>
-      </div>
-      <!-- MongoDB -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🍃</div>
-        <div class="text-xs text-cream/70">MongoDB</div>
-      </div>
-      <!-- GraphQL -->
-      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
-        <div class="text-2xl mb-1">🔮</div>
-        <div class="text-xs text-cream/70">GraphQL</div>
+      <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 mb-12">
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🟨</div>
+          <div class="text-xs text-cream/70">JavaScript</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🔷</div>
+          <div class="text-xs text-cream/70">TypeScript</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">⚛️</div>
+          <div class="text-xs text-cream/70">React</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">▲</div>
+          <div class="text-xs text-cream/70">Next.js</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🟢</div>
+          <div class="text-xs text-cream/70">Node.js</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🗄️</div>
+          <div class="text-xs text-cream/70">SQL</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🌐</div>
+          <div class="text-xs text-cream/70">HTML5</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🎨</div>
+          <div class="text-xs text-cream/70">CSS3</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🌊</div>
+          <div class="text-xs text-cream/70">Tailwind</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">📦</div>
+          <div class="text-xs text-cream/70">Git</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🐳</div>
+          <div class="text-xs text-cream/70">Docker</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🔗</div>
+          <div class="text-xs text-cream/70">REST API</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🐧</div>
+          <div class="text-xs text-cream/70">Linux</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">⚡</div>
+          <div class="text-xs text-cream/70">Vite</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🍃</div>
+          <div class="text-xs text-cream/70">MongoDB</div>
+        </div>
+        <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+          <div class="text-2xl mb-1">🔮</div>
+          <div class="text-xs text-cream/70">GraphQL</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Contacto Section -->
   <section id="contacto" class="py-20 lg:py-28 relative overflow-hidden">
@@ -1009,7 +978,7 @@
 
             <div>
               <label class="block text-sm font-medium mb-2 text-coffee-900">Cuéntame tu idea *</label>
-              <textarea id="inputMessage" class="form-input w-full px-4 py-3 rounded-xl h-32 resize-none" placeholder="¿Qué necesitas? ¿Tienes un negocio, restaurante, tienda?" maxlength="500"></textarea>
+              <textarea id="inputMessage" class="form-input w-full px-4 py-3 rounded-xl h-32 resize-none" placeholder="¿Qué necesitas? ¿Tienes un negocio, restaurante, catálogo de productos?" maxlength="500"></textarea>
               <div class="flex justify-between items-center mt-1">
                 <div id="errorMessage" class="text-red-500 text-sm hidden"></div>
                 <div class="text-xs text-coffee-500 ml-auto"><span id="charCount">0</span>/500</div>
@@ -1070,7 +1039,7 @@
 
           <a href="https://wa.me/56963558009?text=Hola%20Alejandro!%20Quiero%20información%20sobre%20desarrollo%20web" target="_blank" class="block bg-gradient-to-br from-coffee-700 to-coffee-900 rounded-2xl p-6 text-cream">
             <div class="font-display text-lg font-bold mb-2">¿Evento o proyecto especial?</div>
-            <p class="text-cream/70 text-sm mb-4">Cumpleaños, aniversarios, eventos corporativos. Hablemos.</p>
+            <p class="text-cream/70 text-sm mb-4">Negocios locales, catálogos o sistemas a medida. Hablemos.</p>
             <div class="btn-cream px-5 py-2.5 rounded-full text-sm font-semibold inline-flex items-center gap-2">
               Consultar ahora <span>→</span>
             </div>
@@ -1095,12 +1064,12 @@
             </div>
           </div>
           <p class="text-cream/60 mb-4 max-w-md text-sm">
-            Desarrollo web profesional en Hualqui, Biobío. Páginas web que venden, sin comisiones, sin enredos.
+            Desarrollo web profesional en Hualqui, Biobío. Páginas web que muestran tu catálogo y gestionan pagos por transferencia sin comisiones ni enredos.
           </p>
           <div class="flex gap-3">
             <a href="https://www.instagram.com/alejandrovanderval/" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors">📷</a>
             <a href="https://github.com/Alejvndro01" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors">🐙</a>
-            <a href="https://wa.me/56963558009" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors"></a>
+            <a href="https://wa.me/56963558009" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors">💬</a>
           </div>
         </div>
 
