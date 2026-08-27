@@ -333,11 +333,13 @@
   <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-coffee-900">
     <video 
       id="scrollVideo" 
-      src="./assets/scroll-bg-opt.mp4" 
+      src="assets/scroll-bg.mp4" 
       preload="auto" 
       muted 
       autoplay
       playsinline 
+      webkit-playsinline
+      crossorigin="anonymous"
       class="w-full h-full object-cover opacity-60">
     </video>
     <!-- Capa de contraste suave -->
@@ -1122,16 +1124,15 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // CONTROL GLOBAL DEL VIDEO POR SCROLL EN TODA LA PÁGINA
+    // CONTROL GLOBAL DE VIDEO POR SCROLL (OPTIMIZADO PARA GITHUB PAGES)
     const scrollVideo = document.getElementById('scrollVideo');
 
     if (scrollVideo) {
-      scrollVideo.pause();
-
       let isVideoTicking = false;
+      let isReady = false;
 
       const syncGlobalVideo = () => {
-        if (!scrollVideo.duration) {
+        if (!isReady || !scrollVideo.duration || isNaN(scrollVideo.duration)) {
           isVideoTicking = false;
           return;
         }
@@ -1142,12 +1143,38 @@
         const scrollFraction = Math.min(Math.max(currentScroll / totalScrollableHeight, 0), 1);
         const targetTime = scrollFraction * scrollVideo.duration;
 
-        if (Math.abs(scrollVideo.currentTime - targetTime) > 0.03) {
+        if (Math.abs(scrollVideo.currentTime - targetTime) > 0.04) {
           scrollVideo.currentTime = targetTime;
         }
 
         isVideoTicking = false;
       };
+
+      const setupVideo = () => {
+        const playPromise = scrollVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            scrollVideo.pause();
+            isReady = true;
+            syncGlobalVideo();
+          }).catch(() => {
+            scrollVideo.pause();
+            isReady = true;
+            syncGlobalVideo();
+          });
+        } else {
+          scrollVideo.pause();
+          isReady = true;
+          syncGlobalVideo();
+        }
+      };
+
+      if (scrollVideo.readyState >= 3) {
+        setupVideo();
+      } else {
+        scrollVideo.addEventListener('canplay', setupVideo, { once: true });
+        scrollVideo.addEventListener('loadeddata', setupVideo, { once: true });
+      }
 
       window.addEventListener('scroll', () => {
         if (!isVideoTicking) {
