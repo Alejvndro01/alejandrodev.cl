@@ -3,1402 +3,1284 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alejandro Dev | Pixel Portfolio</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/press-start-2p@latest/latin-400-normal.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vt323@latest/latin-400-normal.css">
+  <title>Alejandro Dev | Software con Paz y Seguridad</title>
+  <meta name="description" content="Desarrollo web profesional en Hualqui, Biobío. Páginas web que venden, sin comisiones, sin enredos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            'rpg-bg': '#1a1a2e',
-            'rpg-panel': '#2d2d44',
-            'rpg-dark': '#16162a',
-            'rpg-border': '#4a4a6a',
-            'rpg-green': '#00e676',
-            'rpg-blue': '#448aff',
-            'rpg-yellow': '#ffd740',
-            'rpg-red': '#ff5252',
-            'rpg-purple': '#7c4dff',
-            'rpg-cyan': '#18ffff',
+            'coffee-900': '#1a0f08',
+            'coffee-800': '#2a1810',
+            'coffee-700': '#3d2817',
+            'coffee-600': '#5a3a22',
+            'coffee-500': '#6b4423',
+            'coffee-400': '#8b5a2b',
+            'coffee-300': '#a67c52',
+            'coffee-200': '#c9a876',
+            'coffee-100': '#d4a574',
+            'coffee-50': '#f5e6d3',
+            'cream': '#faf3e8',
+          },
+          fontFamily: {
+            'display': ['Playfair Display', 'serif'],
+            'body': ['Inter', 'sans-serif'],
+            'hand': ['Caveat', 'cursive'],
           }
         }
       }
     }
   </script>
   <style>
-    * { image-rendering: pixelated; }
+    * { scroll-behavior: smooth; }
+    html { scroll-padding-top: 80px; }
     body {
-      font-family: 'VT323', monospace;
-      background-color: #1a1a2e;
+      font-family: 'Inter', sans-serif;
+      background: #faf3e8;
+      color: #2a1810;
       overflow-x: hidden;
     }
-    .font-pixel { font-family: 'Press Start 2P', cursive; }
-    .font-vt { font-family: 'VT323', monospace; }
+    .font-display { font-family: 'Playfair Display', serif; }
+    .font-hand { font-family: 'Caveat', cursive; }
 
-    /* CRT Scanline Effect */
-    .scanlines::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0,0,0,0.15) 0px,
-        rgba(0,0,0,0.15) 1px,
-        transparent 1px,
-        transparent 3px
-      );
-      pointer-events: none;
-      z-index: 9999;
-    }
-    .scanlines::after {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%);
-      pointer-events: none;
-      z-index: 9998;
-    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #faf3e8; }
+    ::-webkit-scrollbar-thumb { background: #6b4423; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3d2817; }
 
-    /* Pixel Box */
-    .pixel-box {
-      border: 4px solid #000;
-      box-shadow: 
-        inset -4px -4px 0 rgba(0,0,0,0.3),
-        inset 4px 4px 0 rgba(255,255,255,0.1),
-        4px 4px 0 #000;
-      position: relative;
-    }
-    .pixel-box::before {
-      content: '';
-      position: absolute;
-      top: 4px; left: 4px; right: 4px; bottom: 4px;
-      border: 2px solid rgba(255,255,255,0.05);
-      pointer-events: none;
-    }
-
-    /* Pixel Button */
-    .pixel-btn {
-      border: 3px solid #000;
-      box-shadow: 
-        inset -2px -2px 0 rgba(0,0,0,0.3),
-        inset 2px 2px 0 rgba(255,255,255,0.2),
-        3px 3px 0 #000;
-      transition: all 0.08s;
-      cursor: pointer;
-      text-transform: uppercase;
-    }
-    .pixel-btn:hover {
-      transform: translate(-1px, -1px);
-      box-shadow: 
-        inset -2px -2px 0 rgba(0,0,0,0.3),
-        inset 2px 2px 0 rgba(255,255,255,0.2),
-        5px 5px 0 #000;
-    }
-    .pixel-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 
-        inset 2px 2px 0 rgba(0,0,0,0.3),
-        1px 1px 0 #000;
-    }
-
-    /* Blinking Cursor */
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-    .blink { animation: blink 1s infinite; }
-
-    /* Float Animation */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
-    .float-anim { animation: float 3s ease-in-out infinite; }
-
-    /* Glow Animation */
-    @keyframes glow {
-      0%, 100% { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
-      50% { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor; }
-    }
-    .glow-anim { animation: glow 2s ease-in-out infinite; }
-
-    /* Press Start Pulse */
-    @keyframes pressStart {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(1.05); }
-    }
-    .press-start { animation: pressStart 1.5s ease-in-out infinite; }
-
-    /* Starfield Background */
-    .starfield {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: -1;
-      background: 
-        radial-gradient(1px 1px at 20px 30px, #fff, transparent),
-        radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
-        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-        radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.6), transparent),
-        radial-gradient(1px 1px at 160px 120px, #fff, transparent),
-        radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.7), transparent),
-        radial-gradient(2px 2px at 250px 90px, #fff, transparent),
-        radial-gradient(1px 1px at 300px 30px, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1px 1px at 350px 110px, #fff, transparent),
-        radial-gradient(1px 1px at 400px 60px, rgba(255,255,255,0.8), transparent),
-        radial-gradient(2px 2px at 450px 100px, #fff, transparent),
-        radial-gradient(1px 1px at 500px 40px, rgba(255,255,255,0.6), transparent),
-        radial-gradient(1px 1px at 550px 80px, #fff, transparent),
-        radial-gradient(1px 1px at 600px 20px, rgba(255,255,255,0.7), transparent),
-        radial-gradient(2px 2px at 650px 130px, #fff, transparent),
-        radial-gradient(1px 1px at 700px 50px, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1px 1px at 750px 90px, #fff, transparent),
-        radial-gradient(1px 1px at 800px 70px, rgba(255,255,255,0.8), transparent);
-      background-size: 800px 200px;
-      animation: starMove 60s linear infinite;
-    }
-    @keyframes starMove {
-      from { background-position: 0 0; }
-      to { background-position: -800px 0; }
-    }
-
-    /* RPG Menu Item */
-    .rpg-menu-item {
-      padding: 8px 16px;
-      cursor: pointer;
-      transition: all 0.1s;
-      border: 2px solid transparent;
-    }
-    .rpg-menu-item:hover, .rpg-menu-item.active {
-      background: rgba(0, 230, 118, 0.15);
-      border-color: #00e676;
-      color: #00e676;
-    }
-    .rpg-menu-item::before {
-      content: '▶';
-      margin-right: 8px;
-      opacity: 0;
-      transition: opacity 0.1s;
-    }
-    .rpg-menu-item:hover::before, .rpg-menu-item.active::before {
-      opacity: 1;
-    }
-
-    /* HP/MP Bar */
-    .stat-bar {
-      height: 16px;
-      border: 2px solid #000;
-      background: #1a1a2e;
-      position: relative;
-      overflow: hidden;
-    }
-    .stat-bar-fill {
-      height: 100%;
-      transition: width 1s ease-out;
-      position: relative;
-    }
-    .stat-bar-fill::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 50%;
-      background: rgba(255,255,255,0.2);
-    }
-
-    /* Dialog Box */
-    .dialog-box {
-      background: #2d2d44;
-      border: 4px solid #000;
-      box-shadow: 
-        inset -4px -4px 0 rgba(0,0,0,0.3),
-        inset 4px 4px 0 rgba(255,255,255,0.05),
-        4px 4px 0 #000;
-      padding: 20px;
-      position: relative;
-    }
-    .dialog-box::after {
-      content: '▼';
-      position: absolute;
-      bottom: 8px;
-      right: 16px;
-      animation: blink 1s infinite;
-      color: #00e676;
-    }
-
-    /* Section Transitions */
-    .section-content {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease-out;
-    }
-    .section-content.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Pixel Grid Pattern */
-    .pixel-grid {
+    /* Coffee stain background */
+    .coffee-bg {
+      background-color: #faf3e8;
       background-image: 
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 16px 16px;
+        radial-gradient(circle at 15% 20%, rgba(107,68,35,0.04) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(107,68,35,0.04) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(107,68,35,0.02) 0%, transparent 50%);
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 12px; }
-    ::-webkit-scrollbar-track { background: #1a1a2e; }
-    ::-webkit-scrollbar-thumb { 
-      background: #4a4a6a; 
-      border: 2px solid #1a1a2e;
+    /* Coffee ring decoration */
+    .coffee-ring {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, transparent 55%, rgba(107,68,35,0.08) 56%, rgba(107,68,35,0.12) 60%, rgba(107,68,35,0.06) 65%, transparent 70%);
+      pointer-events: none;
     }
-    ::-webkit-scrollbar-thumb:hover { background: #00e676; }
 
     /* Navigation */
+    .nav-blur {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
     .nav-link {
       position: relative;
-      padding: 4px 0;
+      padding: 8px 0;
+      transition: color 0.3s;
     }
     .nav-link::after {
       content: '';
       position: absolute;
       bottom: 0;
-      left: 0;
+      left: 50%;
       width: 0;
       height: 2px;
-      background: #00e676;
-      transition: width 0.3s;
+      background: #6b4423;
+      transition: all 0.3s;
+      transform: translateX(-50%);
     }
     .nav-link:hover::after { width: 100%; }
+    .nav-link:hover { color: #6b4423; }
 
-    /* Project Card Hover */
-    .project-card {
-      transition: all 0.2s;
+    /* Hero */
+    .hero-bg {
+      background: linear-gradient(135deg, #2a1810 0%, #3d2817 50%, #5a3a22 100%);
+      position: relative;
+      overflow: hidden;
     }
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 
-        inset -4px -4px 0 rgba(0,0,0,0.3),
-        inset 4px 4px 0 rgba(255,255,255,0.1),
-        8px 8px 0 #000;
-    }
-
-    /* Input RPG Style */
-    .rpg-input {
-      background: #1a1a2e;
-      border: 3px solid #4a4a6a;
-      color: #00e676;
-      font-family: 'VT323', monospace;
-      font-size: 1.2rem;
-      padding: 8px 12px;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      width: 100%;
-    }
-    .rpg-input:focus {
-      border-color: #00e676;
-      box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
-    }
-    .rpg-input::placeholder { color: #4a4a6a; }
-
-    /* Input States */
-    .rpg-input.input-error {
-      border-color: #ff5252 !important;
-      box-shadow: 0 0 10px rgba(255, 82, 82, 0.3);
-      animation: shake 0.3s;
-    }
-    .rpg-input.input-success {
-      border-color: #00e676 !important;
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-4px); }
-      75% { transform: translateX(4px); }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(212,165,116,0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(201,168,118,0.1) 0%, transparent 40%);
+      pointer-events: none;
     }
 
-    /* Error Message */
-    .error-msg {
-      font-family: 'VT323', monospace;
-      font-size: 1.1rem;
-      color: #ff5252;
-      margin-top: 4px;
-      min-height: 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes pulse-soft {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(107,68,35,0.4); }
+      50% { box-shadow: 0 0 0 15px rgba(107,68,35,0); }
+    }
+    @keyframes steam {
+      0% { transform: translateY(0) scaleX(1); opacity: 0.5; }
+      100% { transform: translateY(-30px) scaleX(1.5); opacity: 0; }
+    }
+
+    .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; }
+    .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+
+    .reveal {
       opacity: 0;
-      transform: translateY(-4px);
-      transition: all 0.2s;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .error-msg.show {
+    .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
-    .error-msg::before {
-      content: '⚠';
-      font-size: 1rem;
-    }
 
-    /* Success indicator */
-    .success-indicator {
-      color: #00e676;
-      font-size: 1.1rem;
-      margin-top: 4px;
-      min-height: 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .success-indicator.show {
-      opacity: 1;
-    }
-    .success-indicator::before {
-      content: '✓';
-      font-weight: bold;
-    }
-
-    /* Character counter */
-    .char-counter {
-      font-family: 'VT323', monospace;
-      font-size: 1rem;
-      color: #4a4a6a;
-      text-align: right;
-      margin-top: 2px;
-      transition: color 0.2s;
-    }
-    .char-counter.warning { color: #ffd740; }
-    .char-counter.danger { color: #ff5252; }
-
-    /* Sound Toggle - BOTTOM RIGHT */
-    .sound-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: #2d2d44;
-      border: 3px solid #000;
-      box-shadow: 3px 3px 0 #000;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-size: 1.4rem;
-      transition: all 0.1s;
-    }
-    .sound-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0 #000;
-    }
-    .sound-btn:hover {
-      background: #3e3a59;
-    }
-
-    /* Level Badge */
-    .level-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: linear-gradient(135deg, #ffd740, #ff9100);
-      color: #000;
-      padding: 2px 8px;
-      border: 2px solid #000;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 0.5rem;
-    }
-
-    /* Experience Bar */
-    .xp-bar-container {
-      background: #1a1a2e;
-      border: 2px solid #000;
-      height: 12px;
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, #6b4423 0%, #3d2817 100%);
+      color: #faf3e8;
+      transition: all 0.3s;
       position: relative;
+      overflow: hidden;
     }
-    .xp-bar-fill {
-      background: linear-gradient(90deg, #ffd740, #ff9100);
-      height: 100%;
-      transition: width 1.5s ease-out;
-    }
-    .xp-bar-fill::after {
+    .btn-primary::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 50%;
-      background: rgba(255,255,255,0.3);
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(250,243,232,0.2), transparent);
+      transition: left 0.6s;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(107,68,35,0.3);
     }
 
-    /* Particle container */
-    .particles {
+    .btn-outline {
+      border: 2px solid #6b4423;
+      color: #6b4423;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover {
+      background: #6b4423;
+      color: #faf3e8;
+      transform: translateY(-2px);
+    }
+
+    .btn-cream {
+      background: #faf3e8;
+      color: #2a1810;
+      transition: all 0.3s;
+    }
+    .btn-cream:hover {
+      background: #f5e6d3;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(107,68,35,0.2);
+    }
+
+    /* Cards */
+    .service-card {
+      background: white;
+      border: 1px solid rgba(107,68,35,0.1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, #6b4423, #c9a876);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(107,68,35,0.12);
+      border-color: rgba(107,68,35,0.2);
+    }
+
+    .step-card {
+      background: white;
+      border: 1px solid rgba(107,68,35,0.1);
+      transition: all 0.3s;
+      position: relative;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(107,68,35,0.1);
+    }
+
+    .project-card {
+      background: white;
+      border: 1px solid rgba(107,68,35,0.1);
+      transition: all 0.4s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(107,68,35,0.12);
+    }
+
+    /* WhatsApp Float */
+    .whatsapp-float {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none;
-      z-index: 0;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      animation: pulse-soft 2s infinite;
+      transition: transform 0.3s;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
     }
 
-    /* Hamburger Button */
-    .hamburger-btn {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 40px;
-      height: 40px;
-      background: #2d2d44;
-      border: 3px solid #000;
-      box-shadow: 3px 3px 0 #000;
-      cursor: pointer;
-      padding: 6px;
-      transition: all 0.1s;
-      flex-shrink: 0;
-    }
-    .hamburger-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0 #000;
-    }
-
+    /* Hamburger */
     .hamburger-line {
       display: block;
-      width: 20px;
-      height: 3px;
-      background: #00e676;
-      margin: 2px 0;
+      width: 24px;
+      height: 2px;
+      background: #faf3e8;
+      margin: 5px 0;
       transition: all 0.3s;
     }
     .hamburger-btn.open .hamburger-line:nth-child(1) {
-      transform: rotate(45deg) translate(4px, 4px);
+      transform: rotate(45deg) translate(5px, 5px);
     }
-    .hamburger-btn.open .hamburger-line:nth-child(2) {
-      opacity: 0;
-    }
+    .hamburger-btn.open .hamburger-line:nth-child(2) { opacity: 0; }
     .hamburger-btn.open .hamburger-line:nth-child(3) {
-      transform: rotate(-45deg) translate(4px, -4px);
+      transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* Mobile Menu Panel */
-    .mobile-menu-panel {
-      display: none;
-      background: #16162a;
-      border-top: 3px solid #4a4a6a;
-      border-bottom: 3px solid #000;
-      padding: 12px 16px;
-      animation: slideDown 0.3s ease-out;
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .mobile-menu-panel.open {
-      display: block;
-    }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .mobile-menu.open {
+      transform: translateX(0);
     }
 
-    @media (max-width: 768px) {
-      .desktop-nav { display: none !important; }
-      .hamburger-btn { display: flex; }
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #6b4423, #c9a876);
+    }
+
+    .form-input {
+      background: white;
+      border: 1px solid rgba(107,68,35,0.2);
+      transition: all 0.3s;
+    }
+    .form-input:focus {
+      border-color: #6b4423;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(107,68,35,0.1);
+    }
+
+    .toast {
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Avatar frame */
+    .avatar-frame {
+      position: relative;
+      padding: 6px;
+      background: linear-gradient(135deg, #c9a876, #6b4423);
+      border-radius: 50%;
+    }
+    .avatar-frame::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: #2a1810;
+    }
+    .avatar-frame img {
+      position: relative;
+      z-index: 1;
+      border-radius: 50%;
+    }
+
+    /* Shield badge */
+    .shield-badge {
+      background: linear-gradient(135deg, #6b4423, #3d2817);
+      color: #faf3e8;
+      border: 2px solid #c9a876;
+    }
+
+    /* Tag */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: rgba(107,68,35,0.08);
+      color: #6b4423;
+      border: 1px solid rgba(107,68,35,0.15);
+    }
+
+    .tag-gold {
+      background: rgba(201,168,118,0.15);
+      color: #5a3a22;
+      border-color: rgba(201,168,118,0.3);
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      height: 8px;
+      background: rgba(107,68,35,0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #6b4423, #c9a876);
+      border-radius: 999px;
+      transition: width 1.5s ease-out;
+    }
+
+    /* Handwritten accent */
+    .hand-accent {
+      font-family: 'Caveat', cursive;
+      color: #6b4423;
+    }
+
+    /* Quote decoration */
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem;
+      line-height: 1;
+      color: rgba(107,68,35,0.1);
+      position: absolute;
     }
   </style>
 </head>
-<body class="text-gray-100 min-h-screen pixel-grid scanlines">
-  <!-- Starfield Background -->
-  <div class="starfield"></div>
-  
-  <!-- Particles -->
-  <canvas id="particles" class="particles"></canvas>
+<body class="coffee-bg">
 
-  <!-- Sound Toggle - BOTTOM RIGHT -->
-  <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Sonido">
-    🔊
-  </button>
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-coffee-900/95 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="#inicio" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-coffee-200 to-coffee-500 flex items-center justify-center font-display font-bold text-coffee-900 text-lg group-hover:shadow-lg transition-all">A</div>
+          <div>
+            <div class="font-display font-bold text-lg leading-none text-cream">Alejandro Dev</div>
+            <div class="text-[10px] text-coffee-200 tracking-widest">SOFTWARE CON PAZ</div>
+          </div>
+        </a>
 
-  <!-- Start Screen Overlay -->
-  <div id="startScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-rpg-bg">
-    <div class="text-center">
-      <div class="mb-8">
-        <div class="font-pixel text-rpg-green text-2xl sm:text-4xl mb-4 glow-anim">ALEJANDRO.DEV</div>
-        <div class="font-vt text-2xl text-gray-400">Full Stack Web Developer</div>
-      </div>
-      <div class="mb-12">
-        <div class="w-32 h-32 sm:w-48 sm:h-48 mx-auto float-anim pixel-box overflow-hidden bg-rpg-dark">
-          <img src="./assets/yo.jpg" onerror="this.onerror=null; this.src='./assets/foto.png';" 
-               alt="Alejandro" class="w-full h-full object-cover" style="image-rendering: auto;">
+        <div class="hidden lg:flex items-center gap-7">
+          <a href="#inicio" class="nav-link text-sm font-medium text-cream/80 hover:text-cream">Inicio</a>
+          <a href="#servicios" class="nav-link text-sm font-medium text-cream/80 hover:text-cream">Servicios</a>
+          <a href="#proceso" class="nav-link text-sm font-medium text-cream/80 hover:text-cream">Proceso</a>
+          <a href="#proyectos" class="nav-link text-sm font-medium text-cream/80 hover:text-cream">Proyectos</a>
+          <a href="#stack" class="nav-link text-sm font-medium text-cream/80 hover:text-cream">Stack</a>
+          <a href="#contacto" class="btn-cream px-6 py-2.5 rounded-full text-sm font-semibold">
+            Agenda 15 min
+          </a>
         </div>
-      </div>
-      <button onclick="startGame()" class="press-start font-pixel text-rpg-yellow text-sm sm:text-lg bg-transparent border-0 cursor-pointer">
-        ▶ PRESS START 
-      </button>
-      <div class="mt-8 font-vt text-gray-500 text-lg">© 2026 alejandrodev.cl</div>
-    </div>
-  </div>
 
-  <!-- Main Content -->
-  <div id="mainContent" class="hidden">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-40 bg-rpg-bg/95 backdrop-blur-sm border-b-4 border-black">
-      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <div class="font-pixel text-rpg-green text-[0.55rem] sm:text-sm">⚔ ALEJANDRO.DEV</div>
-        <div class="desktop-nav flex gap-6 font-vt text-lg">
-          <a href="#hero" class="nav-link text-gray-300 hover:text-rpg-green">Inicio</a>
-          <a href="#stats" class="nav-link text-gray-300 hover:text-rpg-green">Stats</a>
-          <a href="#quests" class="nav-link text-gray-300 hover:text-rpg-green">Quests</a>
-          <a href="#inventory" class="nav-link text-gray-300 hover:text-rpg-green">Inventario</a>
-          <a href="#contact" class="nav-link text-gray-300 hover:text-rpg-green">Contacto</a>
-        </div>
-        <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Abrir menú">
+        <button class="lg:hidden hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Menú">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
         </button>
       </div>
-      <div id="mobileMenu" class="mobile-menu-panel">
-        <div class="flex flex-col gap-2 font-vt text-xl max-w-6xl mx-auto">
-          <a href="#hero" class="rpg-menu-item" onclick="closeMobileMenu()">🏠 Inicio</a>
-          <a href="#stats" class="rpg-menu-item" onclick="closeMobileMenu()">📊 Stats</a>
-          <a href="#quests" class="rpg-menu-item" onclick="closeMobileMenu()">📜 Quests</a>
-          <a href="#inventory" class="rpg-menu-item" onclick="closeMobileMenu()">🎒 Inventario</a>
-          <a href="#contact" class="rpg-menu-item" onclick="closeMobileMenu()">💬 Contacto</a>
-        </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-coffee-900 z-50 p-8 border-l border-coffee-700">
+    <button onclick="toggleMenu()" class="absolute top-6 right-6 text-2xl text-coffee-200 hover:text-cream">✕</button>
+    <div class="mt-16 flex flex-col gap-5">
+      <a href="#inicio" onclick="toggleMenu()" class="text-2xl font-display font-semibold text-cream hover:text-coffee-200 transition-colors">Inicio</a>
+      <a href="#servicios" onclick="toggleMenu()" class="text-2xl font-display font-semibold text-cream hover:text-coffee-200 transition-colors">Servicios</a>
+      <a href="#proceso" onclick="toggleMenu()" class="text-2xl font-display font-semibold text-cream hover:text-coffee-200 transition-colors">Proceso</a>
+      <a href="#proyectos" onclick="toggleMenu()" class="text-2xl font-display font-semibold text-cream hover:text-coffee-200 transition-colors">Proyectos</a>
+      <a href="#stack" onclick="toggleMenu()" class="text-2xl font-display font-semibold text-cream hover:text-coffee-200 transition-colors">Stack</a>
+      <a href="#contacto" onclick="toggleMenu()" class="btn-cream px-6 py-3 rounded-full text-center font-semibold mt-4">Agenda 15 min</a>
+    </div>
+    <div class="absolute bottom-8 left-8 right-8">
+      <div class="text-sm text-coffee-200 mb-3">Síguenos</div>
+      <div class="flex gap-3">
+        <a href="https://www.instagram.com/alejandrovanderval/" target="_blank" class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors text-lg">📷</a>
+        <a href="https://github.com/Alejvndro01" target="_blank" class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors text-lg">🐙</a>
+        <a href="https://wa.me/56963558009" target="_blank" class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors text-lg">💬</a>
       </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="hero" class="min-h-screen flex items-center justify-center pt-20 px-4">
-      <div class="max-w-4xl w-full">
-        <div class="pixel-box bg-rpg-panel p-6 sm:p-8">
-          <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
-            <!-- Avatar -->
-            <div class="relative">
-              <div class="w-32 h-32 sm:w-40 sm:h-40 bg-rpg-dark pixel-box flex items-center justify-center overflow-hidden float-anim">
-                <img src="./assets/yo.jpg" onerror="this.onerror=null; this.src='./assets/foto.png';" 
-                     alt="Alejandro Dev" class="w-full h-full object-cover" style="image-rendering: auto;">
-              </div>
-              <div class="absolute -bottom-2 -right-2 level-badge">LV.24</div>
-            </div>
-            
-            <!-- Info -->
-            <div class="flex-1 text-center sm:text-left">
-              <h1 class="font-pixel text-lg sm:text-2xl text-rpg-green mb-2">ALEJANDRO.DEV</h1>
-              <p class="font-vt text-xl sm:text-2xl text-gray-300 mb-1">Full Stack Web Developer</p>
-              <p class="font-vt text-lg text-gray-400 mb-4">Clase: <span class="text-rpg-cyan">Arquitecto Digital</span> | Región: <span class="text-rpg-yellow">Chile</span></p>
-              
-              <div class="space-y-2 mb-4">
-                <div class="flex items-center gap-2">
-                  <span class="font-pixel text-[0.5rem] text-rpg-red w-8">HP</span>
-                  <div class="flex-1 stat-bar">
-                    <div class="stat-bar-fill bg-gradient-to-r from-rpg-red to-red-400" style="width: 100%"></div>
-                  </div>
-                  <span class="font-vt text-rpg-red text-lg w-20 text-right">100/100</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="font-pixel text-[0.5rem] text-rpg-blue w-8">MP</span>
-                  <div class="flex-1 stat-bar">
-                    <div class="stat-bar-fill bg-gradient-to-r from-rpg-blue to-blue-400" style="width: 95%"></div>
-                  </div>
-                  <span class="font-vt text-rpg-blue text-lg w-20 text-right">95/100</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="font-pixel text-[0.5rem] text-rpg-yellow w-8">XP</span>
-                  <div class="flex-1 xp-bar-container">
-                    <div class="xp-bar-fill" style="width: 78%"></div>
-                  </div>
-                  <span class="font-vt text-rpg-yellow text-lg w-20 text-right">7800/10000</span>
-                </div>
-              </div>
-
-              <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
-                <a href="#quests" class="pixel-btn bg-rpg-green text-black px-4 py-2 font-pixel text-[0.5rem] sm:text-xs">📜 QUESTS</a>
-                <a href="#stats" class="pixel-btn bg-rpg-blue text-white px-4 py-2 font-pixel text-[0.5rem] sm:text-xs">📊 STATS</a>
-                <a href="#inventory" class="pixel-btn bg-rpg-purple text-white px-4 py-2 font-pixel text-[0.5rem] sm:text-xs">🎒 INVENTARIO</a>
-                <a href="#contact" class="pixel-btn bg-rpg-yellow text-black px-4 py-2 font-pixel text-[0.5rem] sm:text-xs">💬 CONTACTO</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="dialog-box mt-6 font-vt text-xl text-gray-300">
-          <p>¡Bienvenido, viajero! Soy <span class="text-rpg-green">Alejandro</span>, un desarrollador web apasionado por crear aplicaciones modernas y escalables. Explora mi mundo y descubre mis proyectos. <span class="blink">_</span></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section id="stats" class="py-20 px-4">
-      <div class="max-w-4xl mx-auto section-content">
-        <h2 class="font-pixel text-lg sm:text-xl text-rpg-yellow mb-8 text-center">📊 CHARACTER STATS</h2>
-        
-        <div class="pixel-box bg-rpg-panel p-6 sm:p-8">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="font-pixel text-[0.5rem] text-rpg-cyan">JavaScript / ES6+</span>
-                <span class="font-vt text-rpg-cyan text-lg">Lv. 90</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 90%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="font-pixel text-[0.5rem] text-rpg-cyan">React / Next.js</span>
-                <span class="font-vt text-rpg-cyan text-lg">Lv. 88</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 88%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="font-pixel text-[0.5rem] text-rpg-cyan">TypeScript</span>
-                <span class="font-vt text-rpg-cyan text-lg">Lv. 83</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 83%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="font-pixel text-[0.5rem] text-rpg-cyan">Node.js / Express</span>
-                <span class="font-vt text-rpg-cyan text-lg">Lv. 87</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 87%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="font-pixel text-[0.5rem] text-rpg-cyan">SQL / PostgreSQL</span>
-                <span class="font-vt text-rpg-cyan text-lg">Lv. 85</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 85%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="font-pixel text-[0.5rem] text-rpg-cyan">HTML5 / CSS3 / Tailwind</span>
-                <span class="font-vt text-rpg-cyan text-lg">Lv. 92</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 92%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="font-pixel text-[0.5rem] text-rpg-cyan">Git / GitHub</span>
-                <span class="font-vt text-rpg-cyan text-lg">Lv. 88</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 88%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="font-pixel text-[0.5rem] text-rpg-cyan">DevOps / Cloud</span>
-                <span class="font-vt text-rpg-cyan text-lg">Lv. 70</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-bar-fill bg-gradient-to-r from-rpg-cyan to-cyan-300" style="width: 70%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-8 pt-6 border-t-2 border-rpg-border">
-            <h3 class="font-pixel text-[0.6rem] text-rpg-yellow mb-4">⚔ ATRIBUTOS</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div class="text-center">
-                <div class="font-pixel text-[0.5rem] text-gray-400 mb-1">INT</div>
-                <div class="font-vt text-3xl text-rpg-yellow">95</div>
-              </div>
-              <div class="text-center">
-                <div class="font-pixel text-[0.5rem] text-gray-400 mb-1">CRE</div>
-                <div class="font-vt text-3xl text-rpg-yellow">88</div>
-              </div>
-              <div class="text-center">
-                <div class="font-pixel text-[0.5rem] text-gray-400 mb-1">DEX</div>
-                <div class="font-vt text-3xl text-rpg-yellow">82</div>
-              </div>
-              <div class="text-center">
-                <div class="font-pixel text-[0.5rem] text-gray-400 mb-1">CHA</div>
-                <div class="font-vt text-3xl text-rpg-yellow">76</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quests Section -->
-    <section id="quests" class="py-20 px-4">
-      <div class="max-w-4xl mx-auto section-content">
-        <h2 class="font-pixel text-lg sm:text-xl text-rpg-yellow mb-8 text-center">📜 QUEST LOG</h2>
-        
-        <div class="grid gap-6">
-          <div class="pixel-box bg-rpg-panel p-6 project-card border-rpg-yellow">
-            <div class="flex flex-col sm:flex-row gap-4">
-              <div class="w-full sm:w-64 h-40 bg-rpg-dark pixel-box flex items-center justify-center overflow-hidden flex-shrink-0">
-                <img src="https://image.qwenlm.ai/public_source/a831ae1d-7ad3-45e5-8673-fb64e8a3baba/198f64f45-2a45-4a25-9d9b-6739e3b0b083.png" 
-                     alt="App Iglesia Preview" class="w-full h-full object-cover" style="image-rendering: auto;">
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center gap-2 mb-2 flex-wrap">
-                  <span class="font-vt text-lg text-rpg-yellow bg-rpg-yellow/20 px-2 py-1 border border-rpg-yellow">⚡ EN PROGRESO</span>
-                  <span class="level-badge">DIF: ★★★★</span>
-                </div>
-                <h3 class="font-pixel text-[0.6rem] sm:text-xs text-rpg-green mb-2">⛪ App Iglesia - Sistema de Gestión</h3>
-                <p class="font-vt text-lg text-gray-300 mb-3">Aplicación web para la gestión integral de una iglesia. Incluye módulos de membresía, eventos, contribuciones y reportes. Desarrollada con tecnologías modernas del stack web.</p>
-                <div class="flex flex-wrap gap-2 mb-4">
-                  <span class="font-vt text-sm bg-rpg-cyan/30 text-rpg-cyan px-2 py-1 border border-rpg-cyan">React</span>
-                  <span class="font-vt text-sm bg-rpg-green/30 text-rpg-green px-2 py-1 border border-rpg-green">Node.js</span>
-                  <span class="font-vt text-sm bg-rpg-blue/30 text-rpg-blue px-2 py-1 border border-rpg-blue">PostgreSQL</span>
-                  <span class="font-vt text-sm bg-rpg-yellow/30 text-rpg-yellow px-2 py-1 border border-rpg-yellow">Tailwind CSS</span>
-                </div>
-                <div class="stat-bar mb-3">
-                  <div class="stat-bar-fill bg-gradient-to-r from-rpg-yellow to-yellow-300" style="width: 60%"></div>
-                </div>
-                <div class="flex items-center justify-between flex-wrap gap-2">
-                  <span class="font-vt text-rpg-yellow text-lg">Progreso: 60%</span>
-                  <a href="https://github.com/Alejvndro01/app-iglesia" target="_blank" rel="noopener noreferrer" class="pixel-btn bg-rpg-dark text-white px-4 py-2 font-pixel text-[0.5rem]">📂 VER CÓDIGO</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pixel-box bg-rpg-panel p-6 project-card opacity-70">
-            <div class="flex flex-col items-center text-center py-8">
-              <div class="text-4xl mb-4">🔮</div>
-              <h3 class="font-pixel text-[0.6rem] sm:text-xs text-rpg-purple mb-2">PRÓXIMAS QUESTS</h3>
-              <p class="font-vt text-lg text-gray-400 mb-4">Más proyectos en desarrollo...</p>
-              <div class="flex gap-2">
-                <span class="font-vt text-sm bg-rpg-purple/30 text-rpg-purple px-2 py-1 border border-rpg-purple blink">Coming Soon</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Inventory Section -->
-    <section id="inventory" class="py-20 px-4">
-      <div class="max-w-4xl mx-auto section-content">
-        <h2 class="font-pixel text-lg sm:text-xl text-rpg-yellow mb-8 text-center">🎒 INVENTARIO (STACK)</h2>
-        
-        <div class="pixel-box bg-rpg-panel p-6 sm:p-8">
-          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-yellow/20 transition-colors cursor-pointer group" title="JavaScript">
-              <span class="text-2xl group-hover:scale-110 transition-transform">⚡</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">JS</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-blue/20 transition-colors cursor-pointer group" title="TypeScript">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🔷</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">TS</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-cyan/20 transition-colors cursor-pointer group" title="React">
-              <span class="text-2xl group-hover:scale-110 transition-transform">⚛️</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">React</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-green/20 transition-colors cursor-pointer group" title="Node.js">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🟢</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">Node</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-purple/20 transition-colors cursor-pointer group" title="Next.js">
-              <span class="text-2xl group-hover:scale-110 transition-transform">▲</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">Next</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-blue/20 transition-colors cursor-pointer group" title="SQL">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🗄️</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">SQL</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-cyan/20 transition-colors cursor-pointer group" title="HTML5">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🌐</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">HTML</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-green/20 transition-colors cursor-pointer group" title="CSS3">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🎨</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">CSS</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-yellow/20 transition-colors cursor-pointer group" title="Tailwind">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🌊</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">Tailwind</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-green/20 transition-colors cursor-pointer group" title="Git">
-              <span class="text-2xl group-hover:scale-110 transition-transform">📦</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">Git</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-red/20 transition-colors cursor-pointer group" title="Docker">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🐳</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">Docker</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-red/20 transition-colors cursor-pointer group" title="REST API">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🔗</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">REST</span>
-            </div>
-            <div class="pixel-box bg-rpg-dark p-3 flex flex-col items-center justify-center hover:bg-rpg-cyan/20 transition-colors cursor-pointer group" title="Linux">
-              <span class="text-2xl group-hover:scale-110 transition-transform">🐧</span>
-              <span class="font-vt text-xs text-gray-400 mt-1">Linux</span>
-            </div>
-          </div>
-
-          <div class="mt-8 pt-6 border-t-2 border-rpg-border">
-            <h3 class="font-pixel text-[0.6rem] text-rpg-yellow mb-4">⚔ EQUIPADO</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div class="pixel-box bg-rpg-dark p-4 text-center">
-                <div class="text-3xl mb-2">⚔️</div>
-                <div class="font-pixel text-[0.5rem] text-rpg-green mb-1">ESPADA PRINCIPAL</div>
-                <div class="font-vt text-lg text-gray-300">React + Next.js</div>
-                <div class="font-vt text-rpg-yellow text-sm">ATK +95</div>
-              </div>
-              <div class="pixel-box bg-rpg-dark p-4 text-center">
-                <div class="text-3xl mb-2">🛡️</div>
-                <div class="font-pixel text-[0.5rem] text-rpg-blue mb-1">ESCUDO</div>
-                <div class="font-vt text-lg text-gray-300">TypeScript</div>
-                <div class="font-vt text-rpg-yellow text-sm">DEF +88</div>
-              </div>
-              <div class="pixel-box bg-rpg-dark p-4 text-center">
-                <div class="text-3xl mb-2">🧪</div>
-                <div class="font-pixel text-[0.5rem] text-rpg-purple mb-1">POCIÓN ESPECIAL</div>
-                <div class="font-vt text-lg text-gray-300">Node.js + Express</div>
-                <div class="font-vt text-rpg-yellow text-sm">MAG +87</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-4">
-      <div class="max-w-4xl mx-auto section-content">
-        <h2 class="font-pixel text-lg sm:text-xl text-rpg-yellow mb-8 text-center">💬 SAVE POINT (CONTACTO)</h2>
-        
-        <div class="dialog-box">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-2xl">🧙</span>
-            <div>
-              <div class="font-pixel text-[0.6rem] text-rpg-green">NPC: ALEJANDRO</div>
-              <div class="font-vt text-lg text-gray-400">"¿Tienes un proyecto para mí?"</div>
-            </div>
-          </div>
-          
-          <form id="contactForm" class="space-y-4" action="https://formspree.io/f/xoeabzba" method="POST" onsubmit="handleSubmit(event)" novalidate>
-            <!-- NOMBRE -->
-            <div>
-              <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">TU NOMBRE:</label>
-              <input 
-                type="text" 
-                id="inputName" 
-                name="name"
-                class="rpg-input" 
-                placeholder="Ingresa tu nombre..." 
-                maxlength="40"
-                autocomplete="name"
-                required
-              >
-              <div id="errorName" class="error-msg"></div>
-              <div id="successName" class="success-indicator">Nombre válido</div>
-            </div>
-
-            <!-- EMAIL -->
-            <div>
-              <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">TU EMAIL:</label>
-              <input 
-                type="email" 
-                id="inputEmail" 
-                name="email"
-                class="rpg-input" 
-                placeholder="tu@email.com" 
-                maxlength="60"
-                autocomplete="email"
-                required
-              >
-              <div id="errorEmail" class="error-msg"></div>
-              <div id="successEmail" class="success-indicator">Email válido</div>
-            </div>
-
-            <!-- CONFIRMAR EMAIL -->
-            <div>
-              <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">CONFIRMAR TU EMAIL:</label>
-              <input 
-                type="email" 
-                id="inputEmailConfirm" 
-                class="rpg-input" 
-                placeholder="Repite tu@email.com" 
-                maxlength="60"
-                autocomplete="off"
-                required
-              >
-              <div id="errorEmailConfirm" class="error-msg"></div>
-              <div id="successEmailConfirm" class="success-indicator">Emails coinciden</div>
-            </div>
-
-            <!-- MENSAJE -->
-            <div>
-              <label class="font-pixel text-[0.5rem] text-gray-400 block mb-1">MENSAJE:</label>
-              <textarea 
-                id="inputMessage" 
-                name="message"
-                class="rpg-input" 
-                style="height: 128px; resize: none;" 
-                placeholder="Describe tu proyecto o idea..." 
-                maxlength="500"
-                required
-              ></textarea>
-              <div class="flex justify-between items-start gap-2">
-                <div id="errorMessage" class="error-msg flex-1"></div>
-                <div id="successMessage" class="success-indicator">Mensaje válido</div>
-              </div>
-              <div id="charCounter" class="char-counter">0 / 500 caracteres</div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-3">
-              <button type="submit" id="submitBtn" class="pixel-btn bg-rpg-green text-black px-6 py-3 font-pixel text-[0.5rem] sm:text-xs flex-1">
-                📨 ENVIAR MENSAJE
-              </button>
-            </div>
-          </form>
-
-          <!-- Social Links -->
-          <div class="mt-6 pt-6 border-t-2 border-rpg-border">
-            <h3 class="font-pixel text-[0.5rem] text-rpg-yellow mb-3">🔗 CONEXIONES</h3>
-            <div class="flex flex-wrap gap-3">
-              <a href="https://github.com/Alejvndro01" target="_blank" rel="noopener noreferrer" class="pixel-btn bg-rpg-dark text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
-                🐙 GitHub
-              </a>
-              <a href="https://discord.gg/eryZTDH4k" target="_blank" rel="noopener noreferrer" class="pixel-btn bg-rpg-purple text-white px-4 py-2 font-vt text-lg flex items-center gap-2">
-                🎮 Discord: SV: Alejvndro Dev
-              </a>
-              <a href="mailto:alejvndro.arevalo@gmail.com" class="pixel-btn bg-rpg-yellow text-black px-4 py-2 font-vt text-lg flex items-center gap-2">
-                📧 Email
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-8 px-4 border-t-4 border-black bg-rpg-dark">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="font-pixel text-[0.5rem] text-rpg-green mb-2">© 2026 ALEJANDRO.DEV.CL</div>
-        <div class="font-vt text-lg text-gray-500">Hecho con pixeles, código y mucho ☕</div>
-        <div class="mt-4 flex justify-center gap-4 flex-wrap">
-          <span class="font-vt text-gray-600">💻 Code. Build. Deploy.</span>
-          <span class="font-vt text-gray-600">|</span>
-          <span class="font-vt text-gray-600">🔄 Always Learning.</span>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 hidden">
-    <div class="pixel-box bg-rpg-panel px-6 py-4 font-vt text-lg text-rpg-green">
-      <span id="toastMsg">¡Mensaje enviado!</span>
     </div>
   </div>
 
+  <!-- Hero Section -->
+  <section id="inicio" class="hero-bg min-h-screen flex items-center pt-20 relative">
+    <!-- Coffee rings decoration -->
+    <div class="coffee-ring" style="top: 10%; right: 5%;"></div>
+    <div class="coffee-ring" style="bottom: 15%; left: 8%; width: 120px; height: 120px;"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left: Content -->
+        <div class="order-2 lg:order-1">
+          <div class="animate-fade-up" style="animation-delay: 0.2s; opacity: 0; animation-fill-mode: forwards;">
+            <span class="inline-flex items-center gap-2 px-4 py-2 bg-cream/10 border border-coffee-200/30 rounded-full text-coffee-200 text-sm font-medium mb-6 backdrop-blur-sm">
+              <span class="w-2 h-2 bg-coffee-200 rounded-full animate-pulse"></span>
+              Disponible para nuevos proyectos
+            </span>
+          </div>
+          
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-cream animate-fade-up" style="animation-delay: 0.4s; opacity: 0; animation-fill-mode: forwards;">
+            Software con<br>
+            <span class="text-coffee-200 italic">Paz</span> y<br>
+            Seguridad
+          </h1>
+          
+          <p class="text-lg text-cream/70 mb-4 max-w-lg animate-fade-up" style="animation-delay: 0.6s; opacity: 0; animation-fill-mode: forwards;">
+            Páginas web que venden. Sin comisiones, sin enredos. Desarrollo seguro, estable y tranquilo.
+          </p>
+
+          <p class="font-hand text-2xl text-coffee-200 mb-8 animate-fade-up" style="animation-delay: 0.7s; opacity: 0; animation-fill-mode: forwards;">
+            "Código con calma, resultados con impacto"
+          </p>
+
+          <div class="flex flex-wrap gap-4 animate-fade-up" style="animation-delay: 0.8s; opacity: 0; animation-fill-mode: forwards;">
+            <a href="#contacto" class="btn-cream px-8 py-4 rounded-full font-semibold flex items-center gap-2">
+              ☕ Agenda 15 min gratis <span>→</span>
+            </a>
+            <a href="#servicios" class="btn-outline border-cream/30 text-cream hover:bg-cream/10 hover:text-cream px-8 py-4 rounded-full font-semibold">
+              Ver servicios
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-cream/10 animate-fade-up" style="animation-delay: 1s; opacity: 0; animation-fill-mode: forwards;">
+            <div>
+              <div class="font-display text-3xl font-bold text-coffee-200">100%</div>
+              <div class="text-sm text-cream/60 mt-1">Sin comisiones</div>
+            </div>
+            <div>
+              <div class="font-display text-3xl font-bold text-coffee-200">24h</div>
+              <div class="text-sm text-cream/60 mt-1">Respuesta</div>
+            </div>
+            <div>
+              <div class="font-display text-3xl font-bold text-coffee-200">∞</div>
+              <div class="text-sm text-cream/60 mt-1">Soporte</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Avatar -->
+        <div class="order-1 lg:order-2 flex justify-center animate-fade-in" style="animation-delay: 0.6s; opacity: 0; animation-fill-mode: forwards;">
+          <div class="relative">
+            <div class="avatar-frame w-64 h-64 sm:w-80 sm:h-80 animate-float">
+              <img src="./assets/foto.png" 
+                   alt="Alejandro" 
+                   class="w-full h-full object-cover"
+                   onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80'">
+            </div>
+            
+            <!-- Floating badges -->
+            <div class="absolute -top-4 -right-4 shield-badge px-4 py-2 rounded-full flex items-center gap-2 shadow-xl">
+              <span class="text-lg">🛡️</span>
+              <div>
+                <div class="text-[10px] font-bold tracking-wider">PAZ</div>
+                <div class="text-[9px] opacity-80">& SEGURIDAD</div>
+              </div>
+            </div>
+
+            <div class="absolute -bottom-4 -left-4 bg-cream text-coffee-900 px-4 py-3 rounded-2xl shadow-xl">
+              <div class="font-hand text-2xl leading-none">Hualqui</div>
+              <div class="text-xs text-coffee-600">→ Biobío, Chile</div>
+            </div>
+
+            <!-- Decorative coffee cup -->
+            <div class="absolute top-1/2 -right-8 text-4xl opacity-60">☕</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
+      <div class="w-6 h-10 border-2 border-cream/30 rounded-full flex justify-center pt-2">
+        <div class="w-1 h-3 bg-coffee-200 rounded-full animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Intro Section -->
+  <section class="py-20 lg:py-28 relative overflow-hidden">
+    <div class="coffee-ring" style="top: 20%; right: -50px; width: 200px; height: 200px;"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <span class="hand-accent text-3xl mb-2 block">Sobre mí</span>
+          <h2 class="font-display text-4xl sm:text-5xl font-bold mb-6 text-coffee-900">
+            Desarrollo con <span class="italic text-coffee-600">calma</span>,<br>entrego con <span class="italic text-coffee-600">paz</span>
+          </h2>
+          <div class="section-divider mb-6"></div>
+          <p class="text-coffee-700 text-lg leading-relaxed mb-4">
+            Soy <strong class="text-coffee-900">Alejandro</strong>, desarrollador full stack en Hualqui, Biobío. Creo páginas web y software para negocios locales que quieren vender más, sin pagar comisiones a plataformas.
+          </p>
+          <p class="text-coffee-600 leading-relaxed mb-6">
+            Mi enfoque es simple: escucho tu idea, te muestro el diseño, lo construimos juntos y te enseño a usarlo. Sin jerga técnica, sin sorpresas, sin enredos.
+          </p>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-coffee-100 rounded-lg flex items-center justify-center flex-shrink-0">🛡️</div>
+              <div>
+                <div class="font-semibold text-coffee-900 text-sm">Desarrollo seguro</div>
+                <div class="text-xs text-coffee-600">Código limpio y protegido</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-coffee-100 rounded-lg flex items-center justify-center flex-shrink-0"></div>
+              <div>
+                <div class="font-semibold text-coffee-900 text-sm">Entrega ágil</div>
+                <div class="text-xs text-coffee-600">Sin prisas, sin retrasos</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-coffee-100 rounded-lg flex items-center justify-center flex-shrink-0">☕</div>
+              <div>
+                <div class="font-semibold text-coffee-900 text-sm">Trato tranquilo</div>
+                <div class="text-xs text-coffee-600">Sin estrés, con calma</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-coffee-100 rounded-lg flex items-center justify-center flex-shrink-0">🎓</div>
+              <div>
+                <div class="font-semibold text-coffee-900 text-sm">Te enseño todo</div>
+                <div class="text-xs text-coffee-600">Soporte incluido</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="bg-white rounded-3xl p-8 shadow-xl border border-coffee-100 relative">
+            <div class="quote-mark -top-4 -left-2">"</div>
+            <p class="font-display text-xl text-coffee-800 italic mb-6 relative z-10">
+              Sin comisiones, sin enredos. Te entrego una página web que vende, te enseño a usarla y te acompaño después.
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-coffee-200">
+                <img src="./assets/foto.png" alt="Alejandro" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80'">
+              </div>
+              <div>
+                <div class="font-semibold text-coffee-900">Alejandro Arévalo</div>
+                <div class="text-sm text-coffee-600">Full Stack Developer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios Section -->
+  <section id="servicios" class="py-20 lg:py-28 bg-coffee-900 text-cream relative overflow-hidden">
+    <div class="coffee-ring" style="top: 10%; left: -80px; opacity: 0.3;"></div>
+    <div class="coffee-ring" style="bottom: 10%; right: -80px; opacity: 0.3;"></div>
+    
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="hand-accent text-3xl mb-2 block text-coffee-200">Lo que hago</span>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold mb-4">
+          Servicios que <span class="italic text-coffee-200">venden</span>
+        </h2>
+        <div class="section-divider mx-auto mb-6"></div>
+        <p class="text-cream/70 max-w-2xl mx-auto text-lg">
+          Deja el WhatsApp desordenado. Vende con tu propia tienda digital.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Servicio 1 -->
+        <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
+          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">🛒</div>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">E-Commerce</h3>
+          <p class="text-cream/70 text-sm mb-4">Tienda online completa para tu restaurante o negocio. Catálogo, carrito y pagos integrados.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag tag-gold">Catálogo</span>
+            <span class="tag tag-gold">Carrito</span>
+            <span class="tag tag-gold">Pagos</span>
+          </div>
+        </div>
+
+        <!-- Servicio 2 -->
+        <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
+          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">📱</div>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Carta Digital</h3>
+          <p class="text-cream/70 text-sm mb-4">Menú digital interactivo con códigos QR. Actualiza precios y productos al instante.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag tag-gold">QR</span>
+            <span class="tag tag-gold">Móvil</span>
+            <span class="tag tag-gold">Live</span>
+          </div>
+        </div>
+
+        <!-- Servicio 3 -->
+        <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
+          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">📦</div>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Sistema de Pedidos</h3>
+          <p class="text-cream/70 text-sm mb-4">Recibe pedidos organizados directo a tu WhatsApp o panel. Adiós al caos.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag tag-gold">WhatsApp</span>
+            <span class="tag tag-gold">Panel</span>
+            <span class="tag tag-gold">Notifs</span>
+          </div>
+        </div>
+
+        <!-- Servicio 4 -->
+        <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
+          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4"></div>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Pagos Integrados</h3>
+          <p class="text-cream/70 text-sm mb-4">Acepta tarjetas, transferencias y pagos digitales. Todo seguro y automatizado.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag tag-gold">Webpay</span>
+            <span class="tag tag-gold">Stripe</span>
+            <span class="tag tag-gold">SSL</span>
+          </div>
+        </div>
+
+        <!-- Servicio 5 -->
+        <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
+          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">🌐</div>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Página Web</h3>
+          <p class="text-cream/70 text-sm mb-4">Sitio web profesional que vende. Diseño a medida, rápido y optimizado para Google.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag tag-gold">SEO</span>
+            <span class="tag tag-gold">Responsive</span>
+            <span class="tag tag-gold">Rápido</span>
+          </div>
+        </div>
+
+        <!-- Servicio 6 -->
+        <div class="service-card bg-coffee-800 border-coffee-700 rounded-2xl p-6 reveal">
+          <div class="w-14 h-14 bg-gradient-to-br from-coffee-200 to-coffee-400 rounded-xl flex items-center justify-center text-2xl mb-4">🎓</div>
+          <h3 class="font-display text-xl font-bold mb-2 text-cream">Capacitación</h3>
+          <p class="text-cream/70 text-sm mb-4">Te enseño a usar tu sitio. Videos, manuales y soporte post-lanzamiento incluido.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag tag-gold">Videos</span>
+            <span class="tag tag-gold">Soporte</span>
+            <span class="tag tag-gold">Manual</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proceso Section -->
+  <section id="proceso" class="py-20 lg:py-28 relative overflow-hidden">
+    <div class="coffee-ring" style="top: 50%; right: -100px; width: 250px; height: 250px;"></div>
+    
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="hand-accent text-3xl mb-2 block">Cómo trabajo</span>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold mb-4 text-coffee-900">
+          Proceso en <span class="italic text-coffee-600">3 pasos</span>
+        </h2>
+        <div class="section-divider mx-auto mb-6"></div>
+        <p class="text-coffee-600 max-w-2xl mx-auto text-lg">
+          Diseño & desarrollo hecho con calma. Sin prisas, sin sorpresas.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 relative">
+        <!-- Connecting line -->
+        <div class="hidden md:block absolute top-16 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-coffee-200 via-coffee-400 to-coffee-200"></div>
+
+        <!-- Paso 1 -->
+        <div class="step-card rounded-2xl p-8 reveal relative">
+          <div class="w-12 h-12 bg-gradient-to-br from-coffee-500 to-coffee-700 text-cream rounded-full flex items-center justify-center font-display font-bold text-xl mb-6 relative z-10 shadow-lg">1</div>
+          <div class="text-4xl mb-4">👂</div>
+          <h3 class="font-display text-xl font-bold mb-3 text-coffee-900">Escucho tu idea</h3>
+          <p class="text-coffee-600 mb-4">Conversamos. Entiendo el problema, tus objetivos y lo que realmente necesitas.</p>
+          <p class="font-hand text-xl text-coffee-500 italic">Sin jerga, solo claridad.</p>
+          <div class="mt-4 pt-4 border-t border-coffee-100">
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">📞 Llamada 15 min</span>
+              <span class="tag"> Briefing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="step-card rounded-2xl p-8 reveal relative">
+          <div class="w-12 h-12 bg-gradient-to-br from-coffee-500 to-coffee-700 text-cream rounded-full flex items-center justify-center font-display font-bold text-xl mb-6 relative z-10 shadow-lg">2</div>
+          <div class="text-4xl mb-4">✏️</div>
+          <h3 class="font-display text-xl font-bold mb-3 text-coffee-900">Te muestro el diseño</h3>
+          <p class="text-coffee-600 mb-4">Boceto y propuesta visual. Te presento el diseño y ajustamos juntos hasta que encaje.</p>
+          <p class="font-hand text-xl text-coffee-500 italic">Tú apruebas cada paso.</p>
+          <div class="mt-4 pt-4 border-t border-coffee-100">
+            <div class="flex flex-wrap gap-2">
+              <span class="tag"> Boceto</span>
+              <span class="tag">🔄 Ajustes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="step-card rounded-2xl p-8 reveal relative">
+          <div class="w-12 h-12 bg-gradient-to-br from-coffee-500 to-coffee-700 text-cream rounded-full flex items-center justify-center font-display font-bold text-xl mb-6 relative z-10 shadow-lg">3</div>
+          <div class="text-4xl mb-4">🚀</div>
+          <h3 class="font-display text-xl font-bold mb-3 text-coffee-900">Lanzamos y te enseño</h3>
+          <p class="text-coffee-600 mb-4">Publicamos. Te entrego todo y te enseño a usarlo. Seguimiento y soporte incluidos.</p>
+          <p class="font-hand text-xl text-coffee-500 italic">No te dejo solo nunca.</p>
+          <div class="mt-4 pt-4 border-t border-coffee-100">
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">🌐 Publicación</span>
+              <span class="tag"> Capacitación</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 text-center reveal">
+        <a href="https://wa.me/56963558009?text=Hola%20Alejandro!%20Vengo%20desde%20tu%20sitio%20web%20y%20quiero%20agendar%2015%20minutos" target="_blank" class="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2">
+          ☕ Agenda 15 min gratis <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proyectos Section -->
+  <section id="proyectos" class="py-20 lg:py-28 bg-cream relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <span class="hand-accent text-3xl mb-2 block">Proyectos</span>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold mb-4 text-coffee-900">
+          Trabajos <span class="italic text-coffee-600">recientes</span>
+        </h2>
+        <div class="section-divider mx-auto mb-6"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Proyecto 1: App Iglesia -->
+        <div class="project-card rounded-2xl overflow-hidden reveal">
+          <div class="h-48 bg-gradient-to-br from-coffee-700 to-coffee-900 flex items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+              <div class="coffee-ring" style="top: -30px; right: -30px;"></div>
+            </div>
+            <div class="text-center relative z-10">
+              <div class="text-5xl mb-2">⛪</div>
+              <div class="font-hand text-2xl text-coffee-200">App Iglesia</div>
+            </div>
+            <div class="absolute top-4 right-4 bg-coffee-200 text-coffee-900 px-3 py-1 rounded-full text-xs font-bold">
+              EN PROGRESO
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-bold mb-2 text-coffee-900">App Iglesia - Sistema de Gestión</h3>
+            <p class="text-coffee-600 text-sm mb-4">Aplicación web para la gestión integral de una iglesia. Módulos de membresía, eventos, contribuciones y reportes.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Tailwind</span>
+            </div>
+            <div class="mb-4">
+              <div class="flex justify-between text-xs text-coffee-600 mb-1">
+                <span>Progreso</span>
+                <span class="font-semibold">60%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%"></div>
+              </div>
+            </div>
+            <a href="https://github.com/Alejvndro01/app-iglesia" target="_blank" class="btn-outline px-4 py-2 rounded-full text-sm font-semibold inline-flex items-center gap-2">
+              📂 Ver código <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Proyecto 2: E-commerce Restaurantes -->
+        <div class="project-card rounded-2xl overflow-hidden reveal">
+          <div class="h-48 bg-gradient-to-br from-coffee-500 to-coffee-700 flex items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+              <div class="coffee-ring" style="bottom: -30px; left: -30px;"></div>
+            </div>
+            <div class="text-center relative z-10">
+              <div class="text-5xl mb-2">🍽️</div>
+              <div class="font-hand text-2xl text-cream">E-Commerce</div>
+            </div>
+            <div class="absolute top-4 right-4 bg-cream text-coffee-900 px-3 py-1 rounded-full text-xs font-bold">
+              SERVICIO DISPONIBLE
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl font-bold mb-2 text-coffee-900">E-Commerce para Restaurantes</h3>
+            <p class="text-coffee-600 text-sm mb-4">Deja el WhatsApp desordenado. Vende con tu propia tienda: carta digital, pedidos organizados y pagos integrados.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag">Carta Digital</span>
+              <span class="tag">Pedidos</span>
+              <span class="tag">Pagos</span>
+              <span class="tag">WhatsApp</span>
+            </div>
+            <div class="mb-4">
+              <div class="flex justify-between text-xs text-coffee-600 mb-1">
+                <span>Disponible para</span>
+                <span class="font-semibold">Tu negocio</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%"></div>
+              </div>
+            </div>
+            <a href="#contacto" class="btn-primary px-4 py-2 rounded-full text-sm font-semibold inline-flex items-center gap-2">
+              ☕ Agenda 15 min <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coming Soon -->
+      <div class="mt-6 project-card rounded-2xl p-8 text-center reveal border-dashed border-2 border-coffee-200 bg-white/50">
+        <div class="text-4xl mb-3">☕</div>
+        <h3 class="font-display text-lg font-bold text-coffee-900 mb-2">Próximos proyectos</h3>
+        <p class="text-coffee-600 text-sm">Más trabajos en desarrollo con paz y calma...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack Section -->
+<section id="stack" class="py-20 lg:py-28 bg-coffee-900 text-cream relative overflow-hidden">
+  <div class="coffee-ring" style="top: 20%; left: -100px; opacity: 0.2;"></div>
+  
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center mb-16 reveal">
+      <span class="hand-accent text-3xl mb-2 block text-coffee-200">Tecnologías</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold mb-4">
+        Mi <span class="italic text-coffee-200">stack</span>
+      </h2>
+      <div class="section-divider mx-auto mb-6"></div>
+      <p class="text-cream/70 max-w-2xl mx-auto text-lg">
+        Herramientas modernas para construir software con paz.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 mb-12">
+      <!-- JavaScript -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🟨</div>
+        <div class="text-xs text-cream/70">JavaScript</div>
+      </div>
+      <!-- TypeScript -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🔷</div>
+        <div class="text-xs text-cream/70">TypeScript</div>
+      </div>
+      <!-- React -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">⚛️</div>
+        <div class="text-xs text-cream/70">React</div>
+      </div>
+      <!-- Next.js -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">▲</div>
+        <div class="text-xs text-cream/70">Next.js</div>
+      </div>
+      <!-- Node.js (Faltaba icono) -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🟢</div>
+        <div class="text-xs text-cream/70">Node.js</div>
+      </div>
+      <!-- SQL -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🗄️</div>
+        <div class="text-xs text-cream/70">SQL</div>
+      </div>
+      <!-- HTML5 -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🌐</div>
+        <div class="text-xs text-cream/70">HTML5</div>
+      </div>
+      <!-- CSS3 -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🎨</div>
+        <div class="text-xs text-cream/70">CSS3</div>
+      </div>
+      <!-- Tailwind -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🌊</div>
+        <div class="text-xs text-cream/70">Tailwind</div>
+      </div>
+      <!-- Git -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">📦</div>
+        <div class="text-xs text-cream/70">Git</div>
+      </div>
+      <!-- Docker (Faltaba icono) -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🐳</div>
+        <div class="text-xs text-cream/70">Docker</div>
+      </div>
+      <!-- REST API -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🔗</div>
+        <div class="text-xs text-cream/70">REST API</div>
+      </div>
+      <!-- Linux -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🐧</div>
+        <div class="text-xs text-cream/70">Linux</div>
+      </div>
+      <!-- Vite -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">⚡</div>
+        <div class="text-xs text-cream/70">Vite</div>
+      </div>
+      <!-- MongoDB -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🍃</div>
+        <div class="text-xs text-cream/70">MongoDB</div>
+      </div>
+      <!-- GraphQL -->
+      <div class="bg-coffee-800 border border-coffee-700 rounded-xl p-4 text-center hover:bg-coffee-700 transition-colors reveal">
+        <div class="text-2xl mb-1">🔮</div>
+        <div class="text-xs text-cream/70">GraphQL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Contacto Section -->
+  <section id="contacto" class="py-20 lg:py-28 relative overflow-hidden">
+    <div class="coffee-ring" style="top: 10%; right: -80px;"></div>
+    <div class="coffee-ring" style="bottom: 10%; left: -80px; width: 150px; height: 150px;"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="hand-accent text-3xl mb-2 block">Contacto</span>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold mb-4 text-coffee-900">
+          Agenda <span class="italic text-coffee-600">15 minutos</span>
+        </h2>
+        <div class="section-divider mx-auto mb-6"></div>
+        <p class="text-coffee-600 max-w-2xl mx-auto text-lg">
+          Conversemos sobre tu proyecto. Sin compromiso, sin enredos.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-8">
+        <!-- Form -->
+        <div class="lg:col-span-3 reveal">
+          <form id="contactForm" class="bg-white rounded-3xl p-8 shadow-xl border border-coffee-100 space-y-5" onsubmit="handleSubmit(event)" novalidate>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm font-medium mb-2 text-coffee-900">Nombre *</label>
+                <input type="text" id="inputName" class="form-input w-full px-4 py-3 rounded-xl" placeholder="Tu nombre" maxlength="40">
+                <div id="errorName" class="text-red-500 text-sm mt-1 hidden"></div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2 text-coffee-900">Teléfono *</label>
+                <input type="tel" id="inputPhone" class="form-input w-full px-4 py-3 rounded-xl" placeholder="+56 9 1234 5678" maxlength="15">
+                <div id="errorPhone" class="text-red-500 text-sm mt-1 hidden"></div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2 text-coffee-900">Email *</label>
+              <input type="email" id="inputEmail" class="form-input w-full px-4 py-3 rounded-xl" placeholder="tu@email.com" maxlength="60">
+              <div id="errorEmail" class="text-red-500 text-sm mt-1 hidden"></div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2 text-coffee-900">Cuéntame tu idea *</label>
+              <textarea id="inputMessage" class="form-input w-full px-4 py-3 rounded-xl h-32 resize-none" placeholder="¿Qué necesitas? ¿Tienes un negocio, restaurante, tienda?" maxlength="500"></textarea>
+              <div class="flex justify-between items-center mt-1">
+                <div id="errorMessage" class="text-red-500 text-sm hidden"></div>
+                <div class="text-xs text-coffee-500 ml-auto"><span id="charCount">0</span>/500</div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary w-full px-8 py-4 rounded-xl font-semibold flex items-center justify-center gap-2">
+              ☕ Enviar mensaje <span>→</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Info -->
+        <div class="lg:col-span-2 space-y-4 reveal">
+          <a href="https://wa.me/56963558009" target="_blank" class="block bg-white rounded-2xl p-5 border border-coffee-100 hover:shadow-lg transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">💬</div>
+              <div>
+                <div class="font-semibold mb-1 text-coffee-900">WhatsApp</div>
+                <div class="text-coffee-600 text-sm mb-1">Respuesta rápida</div>
+                <div class="text-coffee-500 text-sm font-medium">+56 9 6355 8009 →</div>
+              </div>
+            </div>
+          </a>
+
+          <a href="mailto:alejvndro.arevalo@gmail.com" class="block bg-white rounded-2xl p-5 border border-coffee-100 hover:shadow-lg transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-coffee-500 to-coffee-700 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">📧</div>
+              <div>
+                <div class="font-semibold mb-1 text-coffee-900">Email</div>
+                <div class="text-coffee-600 text-sm mb-1">Consultas formales</div>
+                <div class="text-coffee-500 text-sm font-medium">alejvndro.arevalo@gmail.com →</div>
+              </div>
+            </div>
+          </a>
+
+          <div class="bg-white rounded-2xl p-5 border border-coffee-100">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-coffee-500 to-coffee-700 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">📍</div>
+              <div>
+                <div class="font-semibold mb-1 text-coffee-900">Ubicación</div>
+                <div class="text-coffee-600 text-sm">Hualqui, Biobío, Chile</div>
+                <div class="text-coffee-400 text-xs mt-1">Código postal: 4180000</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 border border-coffee-100">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-coffee-500 to-coffee-700 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">🕐</div>
+              <div>
+                <div class="font-semibold mb-1 text-coffee-900">Respuesta</div>
+                <div class="text-coffee-600 text-sm">En menos de 24 horas</div>
+                <div class="font-hand text-lg text-coffee-500 italic">Siempre con calma</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://wa.me/56963558009?text=Hola%20Alejandro!%20Quiero%20información%20sobre%20desarrollo%20web" target="_blank" class="block bg-gradient-to-br from-coffee-700 to-coffee-900 rounded-2xl p-6 text-cream">
+            <div class="font-display text-lg font-bold mb-2">¿Evento o proyecto especial?</div>
+            <p class="text-cream/70 text-sm mb-4">Cumpleaños, aniversarios, eventos corporativos. Hablemos.</p>
+            <div class="btn-cream px-5 py-2.5 rounded-full text-sm font-semibold inline-flex items-center gap-2">
+              Consultar ahora <span>→</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-coffee-900 text-cream py-12 border-t border-coffee-700">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-coffee-200">
+              <img src="./assets/foto.png" alt="Alejandro" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80'">
+            </div>
+            <div>
+              <div class="font-display font-bold text-lg">Alejandro Dev</div>
+              <div class="text-xs text-coffee-200 tracking-widest">SOFTWARE CON PAZ</div>
+            </div>
+          </div>
+          <p class="text-cream/60 mb-4 max-w-md text-sm">
+            Desarrollo web profesional en Hualqui, Biobío. Páginas web que venden, sin comisiones, sin enredos.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://www.instagram.com/alejandrovanderval/" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors">📷</a>
+            <a href="https://github.com/Alejvndro01" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors">🐙</a>
+            <a href="https://wa.me/56963558009" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-coffee-500 transition-colors"></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-semibold mb-4 text-cream">Navegación</h4>
+          <ul class="space-y-2 text-cream/60 text-sm">
+            <li><a href="#inicio" class="hover:text-coffee-200 transition-colors">Inicio</a></li>
+            <li><a href="#servicios" class="hover:text-coffee-200 transition-colors">Servicios</a></li>
+            <li><a href="#proceso" class="hover:text-coffee-200 transition-colors">Proceso</a></li>
+            <li><a href="#proyectos" class="hover:text-coffee-200 transition-colors">Proyectos</a></li>
+            <li><a href="#stack" class="hover:text-coffee-200 transition-colors">Stack</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-semibold mb-4 text-cream">Contacto</h4>
+          <ul class="space-y-2 text-cream/60 text-sm">
+            <li>📍 Hualqui, Biobío</li>
+            <li>📱 +56 9 6355 8009</li>
+            <li>📧 alejvndro.arevalo@gmail.com</li>
+            <li>🕐 Respuesta en 24h</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-coffee-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="text-sm text-cream/50">
+          © 2026 Alejandro Dev. Todos los derechos reservados.
+        </div>
+        <div class="font-hand text-xl text-coffee-200">
+          Hecho con ☕, código y mucha calma
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/56963558009?text=Hola%20Alejandro!%20Vengo%20desde%20tu%20sitio%20web" target="_blank" 
+     class="whatsapp-float w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-2xl text-3xl">
+    💬
+  </a>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-coffee-900 text-cream px-6 py-4 rounded-xl shadow-2xl border border-coffee-700">
+    <div id="toastMsg" class="font-medium"></div>
+  </div>
+
   <script>
-    // ============================================
-    // SOUND SYSTEM
-    // ============================================
-    let soundEnabled = true;
-    let audioCtx = null;
-
-    function getAudioCtx() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // NAVBAR SCROLL EFFECT
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('shadow-lg');
+      } else {
+        navbar.classList.remove('shadow-lg');
       }
-      return audioCtx;
+    });
+
+    // MOBILE MENU
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('hamburgerBtn');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
     }
 
-    function playSound(type) {
-      if (!soundEnabled) return;
-      try {
-        const ctx = getAudioCtx();
-        const oscillator = ctx.createOscillator();
-        const gainNode = ctx.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(ctx.destination);
-        
-        switch(type) {
-          case 'click':
-            oscillator.frequency.setValueAtTime(800, ctx.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.1);
-            gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
-            oscillator.start(ctx.currentTime);
-            oscillator.stop(ctx.currentTime + 0.1);
-            break;
-          case 'hover':
-            oscillator.frequency.setValueAtTime(600, ctx.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.05);
-            gainNode.gain.setValueAtTime(0.05, ctx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
-            oscillator.start(ctx.currentTime);
-            oscillator.stop(ctx.currentTime + 0.05);
-            break;
-          case 'start':
-            oscillator.frequency.setValueAtTime(400, ctx.currentTime);
-            oscillator.frequency.setValueAtTime(500, ctx.currentTime + 0.1);
-            oscillator.frequency.setValueAtTime(600, ctx.currentTime + 0.2);
-            oscillator.frequency.setValueAtTime(800, ctx.currentTime + 0.3);
-            gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-            oscillator.start(ctx.currentTime);
-            oscillator.stop(ctx.currentTime + 0.5);
-            break;
-          case 'success':
-            oscillator.frequency.setValueAtTime(523, ctx.currentTime);
-            oscillator.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
-            oscillator.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
-            gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-            oscillator.start(ctx.currentTime);
-            oscillator.stop(ctx.currentTime + 0.4);
-            break;
-          case 'error':
-            oscillator.frequency.setValueAtTime(300, ctx.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.2);
-            gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
-            oscillator.start(ctx.currentTime);
-            oscillator.stop(ctx.currentTime + 0.2);
-            break;
+    // REVEAL ON SCROLL
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
-      } catch(e) {}
-    }
+      });
+    }, { threshold: 0.1 });
 
-    function toggleSound() {
-      soundEnabled = !soundEnabled;
-      document.getElementById('soundToggle').textContent = soundEnabled ? '🔊' : '🔇';
-      if (soundEnabled) playSound('click');
-    }
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // ============================================
     // FORM VALIDATION
-    // ============================================
     const validators = {
-      name: (value) => {
-        const trimmed = value.trim();
-        if (trimmed.length === 0) return '⚠ El nombre es obligatorio';
-        if (trimmed.length < 2) return '⚠ Mínimo 2 caracteres';
-        if (trimmed.length > 40) return '⚠ Máximo 40 caracteres';
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s']+$/.test(trimmed)) return '⚠ Solo se permiten letras';
+      name: (v) => {
+        if (!v.trim()) return 'El nombre es obligatorio';
+        if (v.trim().length < 2) return 'Mínimo 2 caracteres';
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s']+$/.test(v.trim())) return 'Solo se permiten letras';
         return null;
       },
-      email: (value) => {
-        const trimmed = value.trim();
-        if (trimmed.length === 0) return '⚠ El email es obligatorio';
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-        if (!emailRegex.test(trimmed)) return '⚠ Formato de email inválido';
-        if (trimmed.length > 60) return '⚠ Email demasiado largo';
+      phone: (v) => {
+        if (!v.trim()) return 'El teléfono es obligatorio';
+        if (!/^[+]?[\d\s-]{8,15}$/.test(v.trim())) return 'Formato de teléfono inválido';
         return null;
       },
-      emailConfirm: (value) => {
-        const trimmed = value.trim();
-        if (trimmed.length === 0) return '⚠ Confirma tu email';
-        const originalEmail = document.getElementById('inputEmail').value.trim();
-        if (trimmed.toLowerCase() !== originalEmail.toLowerCase()) {
-          return '⚠ Los correos no coinciden';
-        }
+      email: (v) => {
+        if (!v.trim()) return 'El email es obligatorio';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())) return 'Email inválido';
         return null;
       },
-      message: (value) => {
-        const trimmed = value.trim();
-        if (trimmed.length === 0) return '⚠ El mensaje es obligatorio';
-        if (trimmed.length < 10) return `⚠ Muy corto (${trimmed.length}/10 mínimo)`;
-        if (trimmed.length > 500) return '⚠ Máximo 500 caracteres';
+      message: (v) => {
+        if (!v.trim()) return 'El mensaje es obligatorio';
+        if (v.trim().length < 10) return 'Mínimo 10 caracteres';
+        if (v.trim().length > 500) return 'Máximo 500 caracteres';
         return null;
       }
     };
 
-    function showError(fieldId, message) {
-      const input = document.getElementById('input' + fieldId);
-      const errorEl = document.getElementById('error' + fieldId);
-      const successEl = document.getElementById('success' + fieldId);
-      
-      input.classList.add('input-error');
-      input.classList.remove('input-success');
-      errorEl.textContent = message;
-      errorEl.classList.add('show');
-      if (successEl) successEl.classList.remove('show');
+    function showError(id, msg) {
+      const el = document.getElementById('error' + id);
+      const input = document.getElementById('input' + id);
+      el.textContent = msg;
+      el.classList.remove('hidden');
+      input.style.borderColor = '#ef4444';
     }
 
-    function showSuccess(fieldId) {
-      const input = document.getElementById('input' + fieldId);
-      const errorEl = document.getElementById('error' + fieldId);
-      const successEl = document.getElementById('success' + fieldId);
-      
-      input.classList.remove('input-error');
-      input.classList.add('input-success');
-      errorEl.textContent = '';
-      errorEl.classList.remove('show');
-      if (successEl) successEl.classList.add('show');
+    function clearError(id) {
+      const el = document.getElementById('error' + id);
+      const input = document.getElementById('input' + id);
+      el.classList.add('hidden');
+      input.style.borderColor = 'rgba(107,68,35,0.2)';
     }
 
-    function clearField(fieldId) {
-      const input = document.getElementById('input' + fieldId);
-      const errorEl = document.getElementById('error' + fieldId);
-      const successEl = document.getElementById('success' + fieldId);
-      
-      input.classList.remove('input-error', 'input-success');
-      errorEl.textContent = '';
-      errorEl.classList.remove('show');
-      if (successEl) successEl.classList.remove('show');
+    function validateField(id, key) {
+      const input = document.getElementById('input' + id);
+      const error = validators[key](input.value);
+      if (error) { showError(id, error); return false; }
+      clearError(id); return true;
     }
 
-    function validateField(fieldId, validatorKey) {
-      const input = document.getElementById('input' + fieldId);
-      const value = input.value;
-      
-      if (value.trim().length === 0 && !input.dataset.touched) {
-        clearField(fieldId);
-        return false;
-      }
-      
-      const error = validators[validatorKey](value);
-      if (error) {
-        showError(fieldId, error);
-        return false;
-      } else {
-        showSuccess(fieldId);
-        return true;
-      }
-    }
+    document.getElementById('inputMessage').addEventListener('input', function() {
+      document.getElementById('charCount').textContent = this.value.length;
+    });
 
-    function updateCharCounter() {
-      const input = document.getElementById('inputMessage');
-      const counter = document.getElementById('charCounter');
-      const length = input.value.length;
-      counter.textContent = `${length} / 500 caracteres`;
-      
-      counter.classList.remove('warning', 'danger');
-      if (length > 450) counter.classList.add('danger');
-      else if (length > 350) counter.classList.add('warning');
-    }
-
-    function initFormValidation() {
-      const nameInput = document.getElementById('inputName');
-      const emailInput = document.getElementById('inputEmail');
-      const emailConfirmInput = document.getElementById('inputEmailConfirm');
-      const messageInput = document.getElementById('inputMessage');
-
-      nameInput.addEventListener('blur', () => {
-        nameInput.dataset.touched = 'true';
-        validateField('Name', 'name');
+    ['Name', 'Phone', 'Email'].forEach(id => {
+      const input = document.getElementById('input' + id);
+      input.addEventListener('blur', () => {
+        if (input.value.trim()) validateField(id, id.toLowerCase());
       });
-      nameInput.addEventListener('input', () => {
-        if (nameInput.dataset.touched) validateField('Name', 'name');
+      input.addEventListener('input', () => {
+        if (input.style.borderColor === 'rgb(239, 68, 68)') validateField(id, id.toLowerCase());
       });
+    });
 
-      emailInput.addEventListener('blur', () => {
-        emailInput.dataset.touched = 'true';
-        validateField('Email', 'email');
-        if (emailConfirmInput.dataset.touched) validateField('EmailConfirm', 'emailConfirm');
-      });
-      emailInput.addEventListener('input', () => {
-        if (emailInput.dataset.touched) validateField('Email', 'email');
-        if (emailConfirmInput.dataset.touched) validateField('EmailConfirm', 'emailConfirm');
-      });
+    document.getElementById('inputMessage').addEventListener('blur', function() {
+      if (this.value.trim()) validateField('Message', 'message');
+    });
+    document.getElementById('inputMessage').addEventListener('input', function() {
+      if (this.style.borderColor === 'rgb(239, 68, 68)') validateField('Message', 'message');
+    });
 
-      emailConfirmInput.addEventListener('blur', () => {
-        emailConfirmInput.dataset.touched = 'true';
-        validateField('EmailConfirm', 'emailConfirm');
-      });
-      emailConfirmInput.addEventListener('input', () => {
-        if (emailConfirmInput.dataset.touched) validateField('EmailConfirm', 'emailConfirm');
-      });
-
-      messageInput.addEventListener('blur', () => {
-        messageInput.dataset.touched = 'true';
-        validateField('Message', 'message');
-      });
-      messageInput.addEventListener('input', () => {
-        updateCharCounter();
-        if (messageInput.dataset.touched) validateField('Message', 'message');
-      });
-    }
-
-    // ============================================
-    // START / NAVIGATION / UI
-    // ============================================
-    function startGame() {
-      playSound('start');
-      const startScreen = document.getElementById('startScreen');
-      startScreen.style.transition = 'opacity 0.5s, transform 0.5s';
-      startScreen.style.opacity = '0';
-      startScreen.style.transform = 'scale(1.1)';
-      setTimeout(() => {
-        startScreen.style.display = 'none';
-        document.getElementById('mainContent').classList.remove('hidden');
-        initParticles();
-        observeSections();
-        initFormValidation();
-      }, 500);
-    }
-
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      const btn = document.getElementById('hamburgerBtn');
-      const isOpen = menu.classList.contains('open');
-      
-      if (isOpen) closeMobileMenu();
-      else {
-        menu.classList.add('open');
-        btn.classList.add('open');
-        playSound('click');
-      }
-    }
-
-    function closeMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      const btn = document.getElementById('hamburgerBtn');
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      playSound('click');
-    }
-
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
       e.preventDefault();
-      
-      document.getElementById('inputName').dataset.touched = 'true';
-      document.getElementById('inputEmail').dataset.touched = 'true';
-      document.getElementById('inputEmailConfirm').dataset.touched = 'true';
-      document.getElementById('inputMessage').dataset.touched = 'true';
-      
-      const nameValid = validateField('Name', 'name');
-      const emailValid = validateField('Email', 'email');
-      const emailConfirmValid = validateField('EmailConfirm', 'emailConfirm');
-      const messageValid = validateField('Message', 'message');
-      
-      if (!nameValid || !emailValid || !emailConfirmValid || !messageValid) {
-        playSound('error');
-        showToast('⚠ Revisa los campos marcados en rojo', true);
-        
-        if (!nameValid) document.getElementById('inputName').focus();
-        else if (!emailValid) document.getElementById('inputEmail').focus();
-        else if (!emailConfirmValid) document.getElementById('inputEmailConfirm').focus();
-        else document.getElementById('inputMessage').focus();
+      const v1 = validateField('Name', 'name');
+      const v2 = validateField('Phone', 'phone');
+      const v3 = validateField('Email', 'email');
+      const v4 = validateField('Message', 'message');
+
+      if (!v1 || !v2 || !v3 || !v4) {
+        showToast('⚠ Revisa los campos marcados', true);
         return;
       }
 
-      const form = e.target;
-      const submitBtn = document.getElementById('submitBtn');
-      const formData = new FormData(form);
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = '⏳ ENVIANDO...';
-
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          playSound('success');
-          showToast('¡Quest recibida! Te contactaré pronto. 🎮');
-          form.reset();
-          
-          ['Name', 'Email', 'EmailConfirm', 'Message'].forEach(clearField);
-          updateCharCounter();
-          
-          document.getElementById('inputName').dataset.touched = '';
-          document.getElementById('inputEmail').dataset.touched = '';
-          document.getElementById('inputEmailConfirm').dataset.touched = '';
-          document.getElementById('inputMessage').dataset.touched = '';
-        } else {
-          throw new Error('Error en Formspree');
-        }
-      } catch (err) {
-        playSound('error');
-        showToast('⚠ Error al enviar. Intenta de nuevo más tarde.', true);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = '📨 ENVIAR MENSAJE';
-      }
+      showToast('☕ ¡Mensaje enviado! Te contactaré con paz.');
+      e.target.reset();
+      document.getElementById('charCount').textContent = '0';
     }
 
     function showToast(msg, isError = false) {
       const toast = document.getElementById('toast');
       const toastMsg = document.getElementById('toastMsg');
       toastMsg.textContent = msg;
-      toastMsg.style.color = isError ? '#ff5252' : '#00e676';
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 3500);
+      toastMsg.style.color = isError ? '#fca5a5' : '#faf3e8';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
     }
 
-    function observeSections() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.section-content').forEach(el => observer.observe(el));
-    }
-
-    function initParticles() {
-      const canvas = document.getElementById('particles');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const particles = [];
-      const colors = ['#00e676', '#448aff', '#7c4dff', '#ffd740', '#18ffff'];
-
-      class Particle {
-        constructor() { this.reset(); }
-        reset() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.size = Math.random() * 3 + 1;
-          this.speedX = (Math.random() - 0.5) * 0.5;
-          this.speedY = (Math.random() - 0.5) * 0.5;
-          this.color = colors[Math.floor(Math.random() * colors.length)];
-          this.alpha = Math.random() * 0.5 + 0.1;
-          this.life = Math.random() * 200 + 100;
-        }
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-          this.life--;
-          if (this.life <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-            this.reset();
-          }
-        }
-        draw() {
-          ctx.fillStyle = this.color;
-          ctx.globalAlpha = this.alpha * (this.life / 200);
-          ctx.fillRect(Math.floor(this.x), Math.floor(this.y), Math.ceil(this.size), Math.ceil(this.size));
-          ctx.globalAlpha = 1;
-        }
-      }
-
-      for (let i = 0; i < 50; i++) particles.push(new Particle());
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-      }
-      animate();
-
-      window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.pixel-btn, .rpg-menu-item, .nav-link').forEach(btn => {
-        btn.addEventListener('mouseenter', () => playSound('hover'));
-        btn.addEventListener('click', () => playSound('click'));
-      });
-    });
-
+    // SMOOTH SCROLL
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
